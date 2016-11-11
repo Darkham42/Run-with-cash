@@ -16,6 +16,8 @@ public class TerrainManager : MonoBehaviour
 
     private Vector3 m_referencePosition;
 
+    private int chunkOffset;
+
     void Start()
     {
         m_referencePosition = ReferencePosition.position;
@@ -43,7 +45,20 @@ public class TerrainManager : MonoBehaviour
         leftObject.transform.localPosition = leftPosition;
         rightObject.transform.localPosition = rightPosition;
 
-        chunk.transform.position = m_referencePosition + new Vector3(0, 0, DistanceOffset * numberGenerated);
+        float offset = 0.0f;
+
+        if (chunkOffset > 0)
+        {
+            offset = 5.0f;
+            --chunkOffset;
+        }
+        if (chunkOffset < 0)
+        {
+            offset = -5.0f;
+            ++chunkOffset;
+        }
+
+        chunk.transform.position = m_referencePosition + new Vector3(offset, 0, DistanceOffset * numberGenerated);
 
         m_chunks.Add(chunk);
 
@@ -71,11 +86,20 @@ public class TerrainManager : MonoBehaviour
 
     void Update()
     {
+        timerRandom -= Time.deltaTime;
+
+        if (timerRandom <= 0.0f)
+        {
+            timerRandom = 5.0f;
+            chunkOffset = Random.Range(-5, 5);
+            currentOffset = 0;
+        }
+
         m_chunks.ForEach(o =>
         {
             float distance = o.transform.position.z - ReferencePosition.position.z;
 
-            if (distance < -10)
+            if (distance < -30)
             {
                 FreeChunk(o);
 
@@ -92,6 +116,8 @@ public class TerrainManager : MonoBehaviour
         //Debug.Log(numberGenerated);
     }
 
+    int currentOffset = 0;
+    float timerRandom = 5.0f;
     bool m_needNewChunk = false;
     List<GameObject> m_chunks = new List<GameObject>();
 }
