@@ -81,6 +81,8 @@
     <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
     <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
     <Compile Include="Assets\Scripts\TerrainGeneration\TerrainManager.cs" />
+    <Compile Include="Assets\Scripts\TestDynamite.cs" />
+    <Compile Include="Assets\Scripts\TestPhysic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
