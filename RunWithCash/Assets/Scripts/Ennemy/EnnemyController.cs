@@ -15,10 +15,12 @@ public class EnnemyController : MonoBehaviour {
 	public float maxSpeed = 100;
 
 	void Start () {
+		controller = GetComponent<ControllerMove>();
 	}
 
 	void Update () {
 		changeDirection ();
+		Debug.DrawLine (transform.FindChild("Cube").transform.position, controller.reference.transform.position) ;
 		if (lifePoint <= 0) {
 			alive = false;
 		}
@@ -26,12 +28,11 @@ public class EnnemyController : MonoBehaviour {
 
 	void changeDirection () {
 		float angleBetweenTarget = Vector3.Angle (transform.forward, target.position);
-		if (angleBetweenTarget >= Mathf.Abs (5.0f)) {
+		if (angleBetweenTarget >= Mathf.Abs (2.0f)) {
 			float onRight = Vector3.Dot (transform.right, target.position);
-			controller.Turn (maxRectif * Mathf.Abs(onRight));
-
-		} else {
-			controller.Turn (0);
+			Debug.Log ("onRight : " + Mathf.Sign(onRight));
+			float turnSpeed = (Mathf.Abs (angleBetweenTarget) < maxRectif) ? Mathf.Abs (angleBetweenTarget) : maxRectif;
+			controller.Turn (Mathf.Sign(onRight), turnSpeed);
 		}
 	}
 
