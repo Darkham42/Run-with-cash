@@ -8,6 +8,9 @@ public class ControllerMove : MonoBehaviour {
     public float speed;
     public float speedTurn;
     public float turnLimit;
+    
+    private GameObject lookAtPoint;
+    private float lookAtPointOffset;
 
     /*
     private Vector3 moveDirection = Vector3.zero;
@@ -22,24 +25,68 @@ public class ControllerMove : MonoBehaviour {
     }
     */
 
+    public void Start()
+    {
+        lookAtPoint = transform.FindChild("LookAtPoint").gameObject;
+        lookAtPoint.transform.parent = null;
+    }
+
     public void FixedUpdate() {
+        turning = false;
         MoveForward();
         transform.LookAt(reference);
+
     }
 
     public void MoveForward() {
         transform.position += transform.forward * speed * Time.fixedDeltaTime;
+        lookAtPoint.transform.position = transform.position + new Vector3(lookAtPointOffset, 0, 7);
     }
 
-    public void Turn(float rotation) {
-        Vector3 turnVector = new Vector3(rotation * speedTurn * Time.deltaTime, 0, 10);
-        if (turnVector.x > turnLimit) {
-            turnVector.x = turnLimit;
+    public void Turn(float rotation, float speed) {
+        Vector3 turnVector = new Vector3(rotation * (speedTurn * speed) * Time.fixedDeltaTime, 0, 10);
+        //if (turnVector.x > turnLimit) {
+        //    turnVector.x = turnLimit;
+        //}
+        //if (turnVector.x < -turnLimit) {
+        //    turnVector.x = -turnLimit;
+        //}
+
+        if (Mathf.Abs(rotation) < 0.3f)
+        {
+            if (lookAtPointOffset > 0)
+            {
+                lookAtPointOffset -= speedTurn * Time.fixedDeltaTime;
+            }
+
+            if (lookAtPointOffset < 0)
+            {
+                lookAtPointOffset += speedTurn * Time.fixedDeltaTime;
+            }
         }
-        if (turnVector.x < -turnLimit) {
-            turnVector.x = -turnLimit;
+        
+        lookAtPointOffset += turnVector.x;
+        
+        if (lookAtPointOffset > turnLimit)
+        {
+            lookAtPointOffset = turnLimit;
         }
-        reference.transform.localPosition = turnVector;
+
+        if (lookAtPointOffset < -turnLimit)
+        {
+            lookAtPointOffset = -turnLimit;
+        }
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("EKZFOIZEJFOIJZEFOI");
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Coucou");
     }
 
     public void Speed() {
@@ -50,4 +97,5 @@ public class ControllerMove : MonoBehaviour {
 
     }
 
+    bool turning = false;
 }

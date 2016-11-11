@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\TerrainManager.cs" />
+     <Compile Include="Assets\TestPhysic.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
