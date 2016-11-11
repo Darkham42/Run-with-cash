@@ -10,14 +10,18 @@ public class TerrainManager : MonoBehaviour
     public float DistanceOffset = 7.0f;
 
     public GameObject CivilianCar;
+    public GameObject CopCar;
 
     private int numberGenerated = 0;
     private Vector3 m_referencePosition;
     private int chunkOffset;
+    private float timerCopSpawn = 0;
+    private GameObject Player;
 
     void Start()
     {
         m_referencePosition = ReferencePosition.position;
+        Player = GameObject.Find("Car");
 
         for (numberGenerated = 0; numberGenerated < PregenerateNumber; ++numberGenerated)
         {
@@ -114,6 +118,15 @@ public class TerrainManager : MonoBehaviour
         {
             m_needNewChunk = false;
             AddNewChunk(true);
+        }
+
+        // Génération des voitures de Police
+        timerCopSpawn += Time.deltaTime;
+        if (timerCopSpawn > 15)
+        {
+            timerCopSpawn = 0;
+            GameObject tmp = GameObject.Instantiate(CopCar) as GameObject;
+            tmp.transform.position = new Vector3(Random.Range(-4.0f, 4.0f), 0, Player.transform.position.z - 30);
         }
 
         //Debug.Log(numberGenerated);

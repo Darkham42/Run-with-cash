@@ -30,8 +30,9 @@ public class PlayerController : MonoBehaviour
 
         bool touched = cube.GetComponent<TestPhysic>().Touched;
         bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
+        bool copTouched = cube.GetComponent<TestPhysic>().CopTouched;
 
-        if (!touched && !carTouched) {
+        if (!touched && !carTouched && !copTouched) {
             controller.Turn(rotation, 1.5f);
         }
         else if (carTouched)
@@ -47,6 +48,19 @@ public class PlayerController : MonoBehaviour
                 controller.Turn(-0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<CivilianCar>().Touched = true;
+            }
+        }
+        else if (copTouched)
+        {
+            if (transform.position.x > cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.position.x)
+            {
+                controller.Turn(0.3f, 50);
+                cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
+            }
+            else
+            {
+                controller.Turn(-0.3f, 50);
+                cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
             }
         }
         else

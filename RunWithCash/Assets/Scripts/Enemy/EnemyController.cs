@@ -5,31 +5,30 @@ using System.Collections;
 public class EnemyController : MonoBehaviour {
 
 	private ControllerMove controller;
-	public Transform target;
-	int lifePoint = 1;
+	private Transform target;
 	bool inScreen;
 	bool alive = true;
 	float speed;
 
 	public float maxRectif = 8;
-	public float maxSpeed = 100;
 
 	void Start () {
 		controller = GetComponent<ControllerMove>();
+        target = GameObject.Find("Car").transform;
 	}
 
 	void Update () {
 
 		// Si au niveau du joueur
 		if ((target.position.z - transform.position.z) <= 1.5) {
-			changeDirection ();
+			changeDirection();
 		}
-		if (lifePoint <= 0) {
-			alive = false;
-		}
+        // Destruction de la voiture de Police
+        if (target.position.z - transform.position.z > 50)
+            Destroy(this.gameObject);
 	}
 
-	void changeDirection () {
+	void changeDirection() {
 		float angleBetweenTarget = Vector3.Angle (transform.forward, target.position - transform.position);
 		if (angleBetweenTarget >= Mathf.Abs (2.0f)) {
 			float onRight = Vector3.Dot (transform.right, target.position - transform.position);
@@ -37,7 +36,7 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	void getHit (int dammage) {
-		lifePoint -= dammage;
+	public void getHit() {
+        GetComponent<ControllerMove>().speed = 0;
 	}
 }

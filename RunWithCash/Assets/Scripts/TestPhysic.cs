@@ -6,7 +6,10 @@ public class TestPhysic : MonoBehaviour
     public bool Touched = false;
     public bool CarTouched = false;
     public bool DeathWall = false;
+    public bool CopTouched = false;
     public GameObject CarGameObject = null;
+    public GameObject CopGameObject = null;
+
 
     public Vector3 Position;
 
@@ -21,6 +24,11 @@ public class TestPhysic : MonoBehaviour
         {
             CarTouched = true;
             CarGameObject = other.gameObject;
+        }
+        else if (other.tag == "CopCar")
+        {
+            CopTouched = true;
+            CopGameObject = other.gameObject;
         }
         else
         {
@@ -37,5 +45,6 @@ public class TestPhysic : MonoBehaviour
     {
         Touched = false;
         CarTouched = false;
+        CopTouched = false;
     }
 }
