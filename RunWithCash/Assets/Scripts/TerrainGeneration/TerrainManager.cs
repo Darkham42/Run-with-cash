@@ -5,17 +5,14 @@ using System.Collections.Generic;
 public class TerrainManager : MonoBehaviour
 {
     public Transform ReferencePosition;
-
     public Vector2 Offset = new Vector2();
-
     public int PregenerateNumber = 5;
-
     public float DistanceOffset = 7.0f;
 
+    public GameObject CivilianCar;
+
     private int numberGenerated = 0;
-
     private Vector3 m_referencePosition;
-
     private int chunkOffset;
 
     void Start()
@@ -59,6 +56,12 @@ public class TerrainManager : MonoBehaviour
         }
 
         chunk.transform.position = m_referencePosition + new Vector3(offset, 0, DistanceOffset * numberGenerated);
+
+        if (Random.Range(0, 50) > 46)
+        {
+            GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
+            tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+        }
 
         m_chunks.Add(chunk);
 

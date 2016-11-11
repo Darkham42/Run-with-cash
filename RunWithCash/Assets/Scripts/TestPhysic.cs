@@ -4,19 +4,27 @@ using System.Collections;
 public class TestPhysic : MonoBehaviour
 {
     public bool Touched = false;
+    public bool CarTouched = false;
     public bool DeathWall = false;
+    public GameObject CarGameObject = null;
 
     public Vector3 Position;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "DeathWall")
+
+        if (other.tag == "DeathWall")
         {
-            Touched = true;
+            DeathWall = true;
+        }
+        else if (other.tag == "CivilianCar")
+        {
+            CarTouched = true;
+            CarGameObject = other.gameObject;
         }
         else
         {
-            DeathWall = true;
+            Touched = true;
         }
     }
 
@@ -28,5 +36,6 @@ public class TestPhysic : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         Touched = false;
+        CarTouched = false;
     }
 }

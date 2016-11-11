@@ -25,15 +25,36 @@ public class PlayerController : MonoBehaviour
     {
         // Déplacement Horizontal du véhicule
         float rotation = Input.GetAxis("Horizontal");
-        bool touched = transform.FindChild("Cube").GetComponent<TestPhysic>().Touched;
 
-        if (!touched)
+        GameObject cube = transform.FindChild("Cube").gameObject;
+
+        bool touched = cube.GetComponent<TestPhysic>().Touched;
+        bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
+
+        if (!touched && !carTouched) {
             controller.Turn(rotation, 1.5f);
-        else {
-            if (transform.position.x > 0) {
+        }
+        else if (carTouched)
+        {
+            if (transform.position.x > cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.position.x)
+            {
+                controller.Turn(0.3f, 50);
+                cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
+            }
+            else
+            {
+                controller.Turn(-0.3f, 50);
+                cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
+            }
+        }
+        else
+        {
+            if (transform.position.x > 0)
+            {
                 controller.Turn(-0.3f, 50);
             }
-            else {
+            else
+            {
                 controller.Turn(0.3f, 50);
             }
         }
