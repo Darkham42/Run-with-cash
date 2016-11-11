@@ -33,7 +33,6 @@ public class EnnemyController : MonoBehaviour {
 			Debug.Log ("onRight : " + Mathf.Sign(onRight));
 			float turnSpeed = (Mathf.Abs (angleBetweenTarget) < maxRectif) ? Mathf.Abs (angleBetweenTarget) : maxRectif;
 			controller.Turn (Mathf.Sign(onRight), turnSpeed);
-
 		}
 	}
 
