@@ -48,7 +48,10 @@ public class PlayerController : MonoBehaviour
             controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime);
 
         // La caméra suit de façon fixe le véhicule
-        camera.transform.position = new Vector3(offSet, 5.5f, transform.FindChild("Cube").position.z - 20);
+        Vector3 pos = transform.FindChild("Cube").position;
+        pos.y = 7.5f;
+        pos.z -= 20;
+        camera.transform.position = Vector3.Lerp(camera.transform.position, pos, 0.1f);
         camera.transform.LookAt(transform.FindChild("Cube"));
 
     }

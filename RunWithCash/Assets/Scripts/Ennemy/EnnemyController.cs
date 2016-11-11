@@ -30,9 +30,16 @@ public class EnnemyController : MonoBehaviour {
 		float angleBetweenTarget = Vector3.Angle (transform.forward, target.position);
 		if (angleBetweenTarget >= Mathf.Abs (2.0f)) {
 			float onRight = Vector3.Dot (transform.right, target.position);
+<<<<<<< HEAD
 			Debug.Log ("onRight : " + Mathf.Sign(onRight));
 			float turnSpeed = (Mathf.Abs (angleBetweenTarget) < maxRectif) ? Mathf.Abs (angleBetweenTarget) : maxRectif;
 			controller.Turn (Mathf.Sign(onRight), turnSpeed);
+=======
+			controller.Turn (maxRectif * Mathf.Abs(onRight), 1);
+
+		} else {
+			controller.Turn(0, 1);
+>>>>>>> origin/master
 		}
 	}
 
