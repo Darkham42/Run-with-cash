@@ -40,11 +40,13 @@ public class PlayerController : MonoBehaviour
             {
                 controller.Turn(0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
+                cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<CivilianCar>().Touched = true;
             }
             else
             {
                 controller.Turn(-0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
+                cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<CivilianCar>().Touched = true;
             }
         }
         else

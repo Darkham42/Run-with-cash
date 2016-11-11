@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\MoveForward.cs" />
+     <Compile Include="Assets\Scripts\CivilianCar.cs" />
      <Compile Include="Assets\Scripts\ControllerMove.cs" />
      <Compile Include="Assets\Scripts\Ennemy\EnnemyController.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
