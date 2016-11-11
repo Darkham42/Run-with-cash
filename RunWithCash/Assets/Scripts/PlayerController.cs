@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class PlayerController : MonoBehaviour
     public float speedMin;
     public Camera camera;
 
+    GameManager gm;
+
     public void Start()
     {
         controller = GetComponent<ControllerMove>();
         offSet = transform.position.x;
+
+        GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void FixedUpdate()
@@ -53,6 +58,11 @@ public class PlayerController : MonoBehaviour
         pos.z -= 20;
         camera.transform.position = Vector3.Lerp(camera.transform.position, pos, 0.1f);
         camera.transform.LookAt(transform.FindChild("Cube"));
+
+        if (transform.FindChild("Cube").GetComponent<TestPhysic>().DeathWall)
+        {
+            SceneManager.LoadScene("menu");
+        }
 
     }
 
