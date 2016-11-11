@@ -24,8 +24,10 @@ public class EnemyController : MonoBehaviour {
 			changeDirection();
 		}
         // Destruction de la voiture de Police
-        if (target.position.z - transform.position.z > 50)
+        if (target.position.z - transform.position.z > 50) {
             Destroy(this.gameObject);
+            GameObject.Find("TerrainPoolManager").GetComponent<TerrainManager>().nbrCops--;
+        }
 	}
 
 	void changeDirection() {

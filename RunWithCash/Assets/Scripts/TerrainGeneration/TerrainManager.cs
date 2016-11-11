@@ -17,6 +17,7 @@ public class TerrainManager : MonoBehaviour
     private int chunkOffset;
     private float timerCopSpawn = 0;
     private GameObject Player;
+    public int nbrCops = 0;
 
     void Start()
     {
@@ -122,11 +123,13 @@ public class TerrainManager : MonoBehaviour
 
         // Génération des voitures de Police
         timerCopSpawn += Time.deltaTime;
-        if (timerCopSpawn > 15)
+        if (timerCopSpawn > 4 && nbrCops <= 5)
         {
             timerCopSpawn = 0;
             GameObject tmp = GameObject.Instantiate(CopCar) as GameObject;
             tmp.transform.position = new Vector3(Random.Range(-4.0f, 4.0f), 0, Player.transform.position.z - 30);
+            nbrCops++;
+            Debug.Log("enemis : " + nbrCops);
         }
 
         //Debug.Log(numberGenerated);
