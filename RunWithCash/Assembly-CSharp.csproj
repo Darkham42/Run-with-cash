@@ -38,36 +38,32 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>D:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+      <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-     <Compile Include="Assets\Scripts\ControllerMove.cs" />
-     <Compile Include="Assets\Scripts\EnnemyController.cs" />
-     <Compile Include="Assets\Scripts\Projectile.cs" />
-     <Compile Include="Assets\Scripts\TestDynamite.cs" />
-=======
      <Compile Include="Assets\MoveForward.cs" />
+     <Compile Include="Assets\Scripts\ADELETE.cs" />
      <Compile Include="Assets\Scripts\ControllerMove.cs" />
-     <Compile Include="Assets\Scripts\EnnemyController.cs" />
-     <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Ennemy\EnnemyController.cs" />
+     <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Projectile\Projectile.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\BuildingPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\TerrainManager.cs" />
->>>>>>> origin/master
+     <Compile Include="Assets\Scripts\TestDynamite.cs" />
  <Reference Include="UnityEngine.UI">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
