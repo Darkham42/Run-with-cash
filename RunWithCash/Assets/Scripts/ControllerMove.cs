@@ -40,8 +40,6 @@ public class ControllerMove : MonoBehaviour {
             turnVector.x = -turnLimit;
         }
         reference.transform.localPosition = turnVector;
-        Debug.Log(turnVector.x);
-
     }
 
     public void Speed() {
