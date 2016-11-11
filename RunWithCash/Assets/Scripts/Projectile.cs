@@ -6,21 +6,27 @@ public class Projectile : MonoBehaviour {
 
 	Rigidbody rb;
 	public int power;
+	public float direction;
+	public float strenght;
 	float weight;
-	Vector3 direction;
-	float strenght;
+	Vector3 hTrajectory;
+	Vector3 trajectory;
 
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
-		Vector3 throwVector = new Vector3 (strenght * Mathf.Cos(45),strenght * Mathf.Sin(45), 0);
-		transform.Rotate(direction);
-		rb.AddForce(throwVector);
+		float radian = direction * Mathf.Deg2Rad;
+		hTrajectory = new Vector3 (Mathf.Cos (radian), 0, Mathf.Tan (radian));
+		hTrajectory.Normalize ();
+		trajectory = Vector3.Slerp (hTrajectory, Vector3.up, 0.5f);
+		strenght *= 1.5f;
+		rb.AddForce(trajectory * strenght, ForceMode.Impulse);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+//		Debug.DrawLine (Vector3.zero, hTrajectory, Color.blue);
+//		Debug.DrawLine (Vector3.zero, trajectory, Color.green);
 	}
 }

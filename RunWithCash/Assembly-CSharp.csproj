@@ -45,16 +45,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+     <Compile Include="Assets\Scripts\ControllerMove.cs" />
+     <Compile Include="Assets\Scripts\EnnemyController.cs" />
+     <Compile Include="Assets\Scripts\Projectile.cs" />
+     <Compile Include="Assets\Scripts\TestDynamite.cs" />
+=======
      <Compile Include="Assets\MoveForward.cs" />
      <Compile Include="Assets\Scripts\ControllerMove.cs" />
      <Compile Include="Assets\Scripts\EnnemyController.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\BuildingPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\TerrainManager.cs" />
-     <Compile Include="Assets\TestPhysic.cs" />
+>>>>>>> origin/master
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
