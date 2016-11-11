@@ -42,4 +42,5 @@ public class PlayerController : MonoBehaviour
         camera.transform.LookAt(transform.FindChild("Cube"));
 
     }
+
 }
