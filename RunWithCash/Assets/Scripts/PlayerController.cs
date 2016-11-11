@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         if (transform.FindChild("Cube").GetComponent<TestPhysic>().DeathWall)
         {
             SceneManager.LoadScene("menu");
+            gm.GameOver = true;
         }
 
     }
