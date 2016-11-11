@@ -20,6 +20,8 @@ public class TestDynamite : MonoBehaviour {
 				Debug.DrawLine (ray.origin, point, Color.black, 2f);
 				Projectile newProjectile = Instantiate (item, Vector3.zero, transform.rotation) as Projectile;
 				newProjectile.direction = Vector3.Angle (Vector3.right, point);
+				float range = Vector3.Distance (Vector3.zero, point);
+				float speed = range / 0;
 				newProjectile.strenght = Vector3.Distance (Vector3.zero, point);
 			}
 		}

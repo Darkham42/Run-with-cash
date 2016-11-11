@@ -12,19 +12,15 @@ public class Projectile : MonoBehaviour {
 	Vector3 hTrajectory;
 	Vector3 trajectory;
 
-
-	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
 		float radian = direction * Mathf.Deg2Rad;
 		hTrajectory = new Vector3 (Mathf.Cos (radian), 0, Mathf.Tan (radian));
 		hTrajectory.Normalize ();
 		trajectory = Vector3.Slerp (hTrajectory, Vector3.up, 0.5f);
-		strenght *= 1.5f;
 		rb.AddForce(trajectory * strenght, ForceMode.Impulse);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 //		Debug.DrawLine (Vector3.zero, hTrajectory, Color.blue);
 //		Debug.DrawLine (Vector3.zero, trajectory, Color.green);
