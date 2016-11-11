@@ -8,9 +8,13 @@ public class ControllerMove : MonoBehaviour {
     public float speed;
     public float speedTurn;
     public float turnLimit;
-    
+    public float speedMax;
+    public float speedMin;
+
     private GameObject lookAtPoint;
     private float lookAtPointOffset;
+    private float boostSpeed = 0;
+    private float brakeSpeed = 0;
 
     /*
     private Vector3 moveDirection = Vector3.zero;
@@ -25,8 +29,7 @@ public class ControllerMove : MonoBehaviour {
     }
     */
 
-    public void Start()
-    {
+    public void Start() {
         lookAtPoint = transform.FindChild("LookAtPoint").gameObject;
         lookAtPoint.transform.parent = null;
     }
@@ -35,67 +38,63 @@ public class ControllerMove : MonoBehaviour {
         turning = false;
         MoveForward();
         transform.LookAt(reference);
-
     }
 
     public void MoveForward() {
-        transform.position += transform.forward * speed * Time.fixedDeltaTime;
+        transform.position += (transform.forward * speed * Time.fixedDeltaTime) + transform.forward * boostSpeed - transform.forward * brakeSpeed;
         lookAtPoint.transform.position = transform.position + new Vector3(lookAtPointOffset, 0, 7);
     }
 
     public void Turn(float rotation, float speed) {
         Vector3 turnVector = new Vector3(rotation * (speedTurn * speed) * Time.fixedDeltaTime, 0, 10);
-        //if (turnVector.x > turnLimit) {
-        //    turnVector.x = turnLimit;
-        //}
-        //if (turnVector.x < -turnLimit) {
-        //    turnVector.x = -turnLimit;
-        //}
 
-        if (Mathf.Abs(rotation) < 0.3f)
-        {
-            if (lookAtPointOffset > 0)
-            {
+        if (Mathf.Abs(rotation) < 0.3f) {
+            if (lookAtPointOffset > 0) {
                 lookAtPointOffset -= speedTurn * Time.fixedDeltaTime;
             }
 
-            if (lookAtPointOffset < 0)
-            {
+            if (lookAtPointOffset < 0) {
                 lookAtPointOffset += speedTurn * Time.fixedDeltaTime;
             }
         }
         
         lookAtPointOffset += turnVector.x;
         
-        if (lookAtPointOffset > turnLimit)
-        {
+        if (lookAtPointOffset > turnLimit) {
             lookAtPointOffset = turnLimit;
         }
 
-        if (lookAtPointOffset < -turnLimit)
-        {
+        if (lookAtPointOffset < -turnLimit) {
             lookAtPointOffset = -turnLimit;
         }
 
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("EKZFOIZEJFOIJZEFOI");
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Coucou");
-    }
-
-    public void Speed() {
+    public void Speed(float value) {
+        boostSpeed += value;
+        if (boostSpeed > speedMax)
+            boostSpeed = speedMax;
 
     }
 
-    public void Brake() {
-
+    public void StopSpeed(float value) {
+        boostSpeed -= value;
+        if (boostSpeed < 0)
+            boostSpeed = 0;
     }
+
+    public void Brake(float value) {
+        brakeSpeed += value;
+        if (brakeSpeed > speedMin)
+            brakeSpeed = speedMin;
+    }
+
+    public void StopBreak(float value) {
+        brakeSpeed -= value;
+        if (brakeSpeed < 0)
+            brakeSpeed = 0;
+    }
+
 
     bool turning = false;
 }
