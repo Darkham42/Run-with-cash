@@ -28,10 +28,10 @@ public class EnnemyController : MonoBehaviour {
 		float angleBetweenTarget = Vector3.Angle (transform.forward, target.position);
 		if (angleBetweenTarget >= Mathf.Abs (5.0f)) {
 			float onRight = Vector3.Dot (transform.right, target.position);
-			controller.Turn (maxRectif * Mathf.Abs(onRight));
+			controller.Turn (maxRectif * Mathf.Abs(onRight), 1);
 
 		} else {
-			controller.Turn (0);
+			controller.Turn(0, 1);
 		}
 	}
 
