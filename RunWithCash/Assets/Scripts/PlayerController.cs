@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
         // La caméra suit de façon fice le véhicule
         camera.transform.position = new Vector3(offSet, 5.5f, transform.position.z - 20);
-        camera.transform.LookAt(transform);
+        camera.transform.LookAt(transform.FindChild("Cube"));
 
     }
 }
