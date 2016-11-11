@@ -7,6 +7,7 @@ public class ControllerMove : MonoBehaviour {
     public Transform reference;
     public float speed;
     public float speedTurn;
+    public float turnLimit;
 
     /*
     private Vector3 moveDirection = Vector3.zero;
@@ -31,7 +32,16 @@ public class ControllerMove : MonoBehaviour {
     }
 
     public void Turn(float rotation) {
-        reference.transform.localPosition = new Vector3(rotation * speedTurn * Time.deltaTime, 0, 10);
+        Vector3 turnVector = new Vector3(rotation * speedTurn * Time.deltaTime, 0, 10);
+        if (turnVector.x > turnLimit) {
+            turnVector.x = turnLimit;
+        }
+        if (turnVector.x < -turnLimit) {
+            turnVector.x = -turnLimit;
+        }
+        reference.transform.localPosition = turnVector;
+        Debug.Log(turnVector.x);
+
     }
 
     public void Speed() {

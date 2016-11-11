@@ -89,7 +89,7 @@ public class TerrainManager : MonoBehaviour
             AddNewChunk(true);
         }
 
-        Debug.Log(numberGenerated);
+        //Debug.Log(numberGenerated);
     }
 
     bool m_needNewChunk = false;
