@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
             cash -= value;
         }
         UpdateCash();
+        player.GetComponent<PlayerController>().SpawnParticles();
     }
 
     void UpdateCash()

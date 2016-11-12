@@ -18,6 +18,11 @@ public class TestPhysic : MonoBehaviour
     [HideInInspector]
     public Vector3 Position;
 
+    [HideInInspector]
+    public bool TouchedCashBonus = false;
+    [HideInInspector]
+    public GameObject TouchedCashGameObject = null;
+
     void OnTriggerEnter(Collider other)
     {
 
@@ -38,6 +43,11 @@ public class TestPhysic : MonoBehaviour
 		else if (other.tag == "Projectile")
 		{
 		}
+        else if (other.tag == "CashBonus")
+        {
+            TouchedCashBonus = true;
+            TouchedCashGameObject = other.gameObject;
+        }
         else
         {
             Touched = true;
@@ -54,5 +64,6 @@ public class TestPhysic : MonoBehaviour
         Touched = false;
         CarTouched = false;
         CopTouched = false;
+        TouchedCashBonus = false;
     }
 }

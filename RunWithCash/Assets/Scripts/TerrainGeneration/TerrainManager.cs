@@ -11,6 +11,7 @@ public class TerrainManager : MonoBehaviour
 
     public GameObject CivilianCar;
     public GameObject CopCar;
+    public GameObject CashBag;
 
     private int numberGenerated = 0;
     private Vector3 m_referencePosition;
@@ -72,6 +73,12 @@ public class TerrainManager : MonoBehaviour
                 GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
             }
+
+            if (Random.Range(0, 100) > 95)
+            {
+                GameObject tmp = GameObject.Instantiate(CashBag) as GameObject;
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+            }
         }
 
         m_chunks.Add(chunk);
@@ -100,15 +107,6 @@ public class TerrainManager : MonoBehaviour
 
     void Update()
     {
-        timerRandom -= Time.deltaTime * gm.GamePaused;
-
-        if (timerRandom <= 0.0f)
-        {
-            timerRandom = 5.0f;
-            chunkOffset = Random.Range(-5, 5);
-            currentOffset = 0;
-        }
-
         m_chunks.ForEach(o =>
         {
             float distance = o.transform.position.z - ReferencePosition.position.z;

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float speedMin;
     public Camera camera;
 
+    public GameObject pe;
+
     GameObject leftTrail;
     GameObject rightTrail;
     GameManager gm;
@@ -43,6 +45,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    GameObject ptc = null;
+
+    public void SpawnParticles()
+    {
+        if (ptc)
+        {
+            return;
+        }
+        GameObject tmp = GameObject.Instantiate(pe) as GameObject;
+        tmp.transform.parent = this.transform;
+        tmp.transform.localPosition = new Vector3(0, -0.46f, -2.4f);
+        ptc = tmp;
+        StartCoroutine(deleteParticle(tmp));
+    }
+
+    IEnumerator deleteParticle(GameObject p)
+    {
+        yield return new WaitForSeconds(2.0f);
+        Destroy(p);
+        ptc = null;
+    }
+
     public void FixedUpdate()
     {
         // Déplacement Horizontal du véhicule
@@ -53,8 +77,9 @@ public class PlayerController : MonoBehaviour
         bool touched = cube.GetComponent<TestPhysic>().Touched;
         bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
         bool copTouched = cube.GetComponent<TestPhysic>().CopTouched;
+        bool cashTouched = cube.GetComponent<TestPhysic>().TouchedCashBonus;
 
-        if (!touched && !carTouched && !copTouched)
+        if ((!touched && !carTouched && !copTouched))
         {
             controller.Turn(rotation, 1.5f);
             if (Mathf.Abs(rotation) > 0.1f)
@@ -110,6 +135,13 @@ public class PlayerController : MonoBehaviour
                 controller.Turn(0.3f, 50);
             }
             AddInvicibility();
+        }
+
+        if (cashTouched)
+        {
+            gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            Destroy(cube.GetComponent<TestPhysic>().TouchedCashGameObject.transform.parent.gameObject);
+            cube.GetComponent<TestPhysic>().TouchedCashBonus = false;
         }
 
         // Accélération du véhicule
