@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour {
 	bool alive = true;
 	float speed;
 
+    public GameObject Explosion;
+
     GameManager gm;
 	public float maxRectif = 8;
 
@@ -39,7 +41,7 @@ public class EnemyController : MonoBehaviour {
             getHit();
             if (transform.position.x > t.CarGameObject.transform.parent.position.x)
             {
-
+                t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
             }
             else
             {
@@ -71,7 +73,9 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void die() {
-		Destroy(this.gameObject);
+        GameObject tmp = GameObject.Instantiate(Explosion) as GameObject;
+        tmp.transform.position = this.transform.position;
+        Destroy(this.gameObject);
 		GameObject.Find("TerrainPoolManager").GetComponent<TerrainManager>().nbrCops--;
 	}
 }

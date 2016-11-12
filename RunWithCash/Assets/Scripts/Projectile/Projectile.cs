@@ -11,8 +11,10 @@ public class Projectile : MonoBehaviour {
 	float angle = 20f;
 	Vector3 trajectory;
 	Vector3 debugTarget;
+    GameManager gm;
 
 	void Start () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 		debugTarget = new Vector3 (transform.position.x, 0, transform.position.z - distance);
 		rb = GetComponent<Rigidbody> ();
 		trajectory = Vector3.Slerp (Vector3.back, Vector3.up, angle / 90f);
@@ -39,6 +41,7 @@ public class Projectile : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("CopCar")) {
 			Debug.Log ("Cop touche par dynamite");
+            gm.PlaySoundMulti(1);
 			Transform hitParent = other.gameObject.transform.parent as Transform;
 			hitParent.GetComponent <EnemyController> ().die ();
 			Destroy (this.gameObject);

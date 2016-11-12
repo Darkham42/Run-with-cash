@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (copTouched)
         {
-            if (transform.position.x > cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.position.x)
+            if (cube.GetComponent<TestPhysic>().CopGameObject && transform.position.x > cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.position.x)
             {
                 controller.Turn(0.3f, 50);
                 cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
@@ -118,7 +118,8 @@ public class PlayerController : MonoBehaviour
             else
             {
                 controller.Turn(-0.3f, 50);
-                cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
+                if (cube.GetComponent<TestPhysic>().CopGameObject)
+                    cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
             }
             gm.RemoveCash(10);
             AddInvicibility();
@@ -140,6 +141,7 @@ public class PlayerController : MonoBehaviour
         if (cashTouched)
         {
             gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            gm.PlaySound(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedCashGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedCashBonus = false;
         }
