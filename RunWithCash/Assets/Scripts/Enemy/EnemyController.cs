@@ -27,7 +27,6 @@ public class EnemyController : MonoBehaviour {
 		}
         // Destruction de la voiture de Police
 		if (target.position.z - transform.position.z > 50) {
-            gm.RemoveCash(10);
 			die();
         }
 	}

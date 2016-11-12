@@ -23,7 +23,6 @@ public class CivilianCar : MonoBehaviour {
         if (timer > 5 ||
             player.transform.position.z - transform.position.z > 50)
         {
-            gm.RemoveCash(2);
             Destroy(this.gameObject);
         }
 	}

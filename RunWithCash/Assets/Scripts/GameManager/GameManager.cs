@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,25 +9,64 @@ public class GameManager : MonoBehaviour
     private int cash;
     private float timer;
 
+    bool gameStarted = false;
+    bool gameDefinitelyOver = false;
+
+    GameObject player;
+
     float startTimer = 3.0f;
+    GameObject UI;
 
     void Start()
     {
         cash = 50;
         UpdateCash();
+        UI = GameObject.Find("CanvasUI");
+        player = GameObject.Find("Car");
+        UpdateStartTimeUI();
+    }
+
+    void UpdateCashUI()
+    {
+        UI.transform.FindChild("Cash").GetComponent<Text>().text = "CASH : " + (cash * 1000).ToString();
+    }
+
+    void UpdateStartTimeUI()
+    {
+        int timer = (int)startTimer + 1;
+        UI.transform.FindChild("StartTimer").GetComponent<Text>().text = timer.ToString();
     }
 
     void Update()
     {
         timer += Time.deltaTime * GamePaused;
         if (cash <= 0)
-            Debug.Log("You lose !");
-            //GameOver = true;
+        {
+            GameOver = true;
+            cash = 0;
+        }
 
         startTimer -= Time.deltaTime;
-        if (startTimer <= 0.0f)
+
+        UpdateStartTimeUI();
+        UpdateCashUI();
+
+        if (startTimer <= 0.0f && gameStarted == false)
         {
             GamePaused = 1.0f;
+            gameStarted = true;
+            UI.transform.FindChild("StartTimer").gameObject.SetActive(false);
+        }
+
+        if (GameOver && gameDefinitelyOver == false)
+        {
+            GamePaused -= Time.deltaTime;
+            if (GamePaused <= 0.0f)
+            {
+                GamePaused = 0.0f;
+                gameDefinitelyOver = true;
+                UI.transform.FindChild("GameOver").gameObject.SetActive(true);
+            }
         }
     }
 
@@ -38,7 +78,10 @@ public class GameManager : MonoBehaviour
 
     public void RemoveCash(int value)
     {
-        cash -= value;
+        if (player.GetComponent<PlayerController>().timerInvincible <= 0.0f)
+        {
+            cash -= value;
+        }
         UpdateCash();
     }
 

@@ -13,11 +13,22 @@ public class PlayerController : MonoBehaviour
 
     GameManager gm;
 
+    [HideInInspector]
+    public float timerInvincible = 0.0f;
+
     public void Start()
     {
         controller = GetComponent<ControllerMove>();
         offSet = transform.position.x;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    void AddInvicibility()
+    {
+        if (timerInvincible <= 0.0f)
+        {
+            timerInvincible = 2.0f;
+        }
     }
 
     public void FixedUpdate()
@@ -31,7 +42,8 @@ public class PlayerController : MonoBehaviour
         bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
         bool copTouched = cube.GetComponent<TestPhysic>().CopTouched;
 
-        if (!touched && !carTouched && !copTouched) {
+        if (!touched && !carTouched && !copTouched)
+        {
             controller.Turn(rotation, 1.5f);
         }
         else if (carTouched)
@@ -48,6 +60,8 @@ public class PlayerController : MonoBehaviour
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<CivilianCar>().Touched = true;
             }
+            gm.RemoveCash(2);
+            AddInvicibility();
         }
         else if (copTouched)
         {
@@ -61,6 +75,8 @@ public class PlayerController : MonoBehaviour
                 controller.Turn(-0.3f, 50);
                 cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
             }
+            gm.RemoveCash(10);
+            AddInvicibility();
         }
         else
         {
@@ -73,6 +89,7 @@ public class PlayerController : MonoBehaviour
             {
                 controller.Turn(0.3f, 50);
             }
+            AddInvicibility();
         }
 
         // Accélération du véhicule
@@ -104,6 +121,13 @@ public class PlayerController : MonoBehaviour
             gm.GameOver = true;
         }
 
+        timerInvincible -= Time.fixedDeltaTime * gm.GamePaused;
+        if (timerInvincible <= 0.0f)
+        {
+            timerInvincible = 0.0f;
+        }
+
+        Debug.Log(timerInvincible);
     }
 
 }
