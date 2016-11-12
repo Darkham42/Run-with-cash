@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour {
 	bool alive = true;
 	float speed;
 
+    GameManager gm;
 	public float maxRectif = 8;
 
 	void Start () {
