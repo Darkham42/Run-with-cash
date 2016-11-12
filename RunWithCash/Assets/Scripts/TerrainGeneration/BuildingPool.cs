@@ -29,7 +29,12 @@ public class BuildingPool : MonoBehaviour
             if (rnd > 90)
                 togen = ListToGenerate[1];
             else
-                togen = ListToGenerate[0];
+            {
+                if (Random.Range(0, 2) == 0)
+                    togen = ListToGenerate[0];
+                else
+                    togen = ListToGenerate[2];
+            }
 
             GameObject newObject = GameObject.Instantiate(togen) as GameObject;
             newObject.SetActive(false);

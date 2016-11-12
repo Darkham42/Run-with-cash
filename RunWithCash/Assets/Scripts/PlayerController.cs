@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         if (cashTouched)
         {
             gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
-            gm.PlaySound(0);
+            gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedCashGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedCashBonus = false;
         }
