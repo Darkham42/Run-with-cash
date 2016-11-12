@@ -11,6 +11,7 @@ public class BuildingPool : MonoBehaviour
     public List<GameObject> PoolUsed;
 
     public GameObject ToGenerate;
+    public List<GameObject> ListToGenerate;
     public int NumberOfObjects = 50;
 
     void Start()
@@ -22,7 +23,15 @@ public class BuildingPool : MonoBehaviour
     {
         for (int i = 0; i < NumberOfObjects; ++i)
         {
-            GameObject newObject = GameObject.Instantiate(ToGenerate) as GameObject;
+            int rnd = Random.Range(0, 100);
+            GameObject togen = null;
+
+            if (rnd > 90)
+                togen = ListToGenerate[1];
+            else
+                togen = ListToGenerate[0];
+
+            GameObject newObject = GameObject.Instantiate(togen) as GameObject;
             newObject.SetActive(false);
 
             PoolNotUsed.Add(newObject);
