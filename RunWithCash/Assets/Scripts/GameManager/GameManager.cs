@@ -88,6 +88,5 @@ public class GameManager : MonoBehaviour
     void UpdateCash()
     {
         // Texte à afficher
-        Debug.Log("$" + cash * 1000);
     }
 }

@@ -29,7 +29,34 @@ public class EnemyController : MonoBehaviour {
 		if (target.position.z - transform.position.z > 50) {
 			die();
         }
-	}
+
+        TestPhysic t = GetComponentInChildren<TestPhysic>();
+
+        //Debug.Log(GetComponentInChildren<TestPhysic>().Touched);
+        //Debug.Log(GetComponentInChildren<TestPhysic>().CopTouched);
+        if (t.CarTouched)
+        {
+            getHit();
+            if (transform.position.x > t.CarGameObject.transform.parent.position.x)
+            {
+
+            }
+            else
+            {
+                t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
+            }
+        }
+        if (t.Touched &&
+            !t.CopTouched &&
+            !t.CarTouched)
+        {
+            getHit();
+        }
+        if (t.CopTouched)
+        {
+            getHit();
+        }
+    }
 
 	void changeDirection() {
 		float angleBetweenTarget = Vector3.Angle (transform.forward, target.position - transform.position);

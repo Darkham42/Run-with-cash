@@ -3,14 +3,19 @@ using System.Collections;
 
 public class TestPhysic : MonoBehaviour
 {
+    [HideInInspector]
     public bool Touched = false;
+    [HideInInspector]
     public bool CarTouched = false;
+    [HideInInspector]
     public bool DeathWall = false;
+    [HideInInspector]
     public bool CopTouched = false;
+    [HideInInspector]
     public GameObject CarGameObject = null;
+    [HideInInspector]
     public GameObject CopGameObject = null;
-
-
+    [HideInInspector]
     public Vector3 Position;
 
     void OnTriggerEnter(Collider other)

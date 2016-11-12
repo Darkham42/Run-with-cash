@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float speedMin;
     public Camera camera;
 
+    GameObject leftTrail;
+    GameObject rightTrail;
     GameManager gm;
 
     [HideInInspector]
@@ -21,6 +23,16 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<ControllerMove>();
         offSet = transform.position.x;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        leftTrail = transform.FindChild("trailLeft").gameObject;
+        rightTrail = transform.FindChild("trailRight").gameObject;
+
+        ActivateTrails(false);
+    }
+
+    void ActivateTrails(bool active)
+    {
+        //leftTrail.SetActive(active);
+        //rightTrail.SetActive(active);
     }
 
     void AddInvicibility()
@@ -45,6 +57,14 @@ public class PlayerController : MonoBehaviour
         if (!touched && !carTouched && !copTouched)
         {
             controller.Turn(rotation, 1.5f);
+            if (Mathf.Abs(rotation) > 0.1f)
+            {
+                ActivateTrails(true);
+            }
+            else
+            {
+                ActivateTrails(false);
+            }
         }
         else if (carTouched)
         {
@@ -117,7 +137,6 @@ public class PlayerController : MonoBehaviour
 
         if (transform.FindChild("Cube").GetComponent<TestPhysic>().DeathWall)
         {
-            //SceneManager.LoadScene("menu");
             GetComponent<ControllerMove>().enabled = false;
             gm.GameOver = true;
         }
@@ -127,8 +146,6 @@ public class PlayerController : MonoBehaviour
         {
             timerInvincible = 0.0f;
         }
-
-        Debug.Log(timerInvincible);
     }
 
 }
