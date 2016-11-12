@@ -147,8 +147,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Accélération du véhicule
+        bool up = Input.GetKeyDown(KeyCode.Z);
         float right = Input.GetAxis("Trigger Right");
-        if (right > 0.1f)
+        if (right > 0.1f || up)
             controller.Speed(right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
         else
         {
@@ -156,8 +157,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Décélération du véhicule
+        bool down = Input.GetKeyDown(KeyCode.S);
         float left = Input.GetAxis("Trigger Left");
-        if (left > 0.1f)
+        if (left > 0.1f ||down)
             controller.Brake(left * speedMin * Time.fixedDeltaTime * gm.GamePaused);
         else
             controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime * gm.GamePaused);

@@ -24,14 +24,18 @@ public class FireController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Debug.DrawRay (transform.position, Vector3.back * maxRange, Color.red);
-		/*
+        /*
 		RaycastHit hit2;
 		if (Physics.BoxCast (transform.position, new Vector3 (1, 1, 1), Vector3.back, out hit2, new Quaternion (0, 0, 0, 0), maxRange)) {
 			Debug.Log ("A toi de tirer !");
 			Debug.Break ();
 		}
 		*/
-		if (Input.GetButtonDown ("Fire1") && gm.GamePaused > 0) {
+        bool dynamite = Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.L);
+        bool shootLeft = Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.K);
+        bool shootRight = Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.M);
+
+        if (dynamite && gm.GamePaused > 0) {
 			RaycastHit hit;
 			Projectile newProjectile = Instantiate (item, transform.position, transform.rotation) as Projectile;
 
@@ -43,9 +47,9 @@ public class FireController : MonoBehaviour {
 				newProjectile.distance = hit.distance;
 			}
 		}
-		if ((Input.GetButtonDown ("Fire2") ^ Input.GetButtonDown ("Fire3")) && gm.GamePaused > 0) {
-			int fireDirection = Input.GetButtonDown ("Fire2") ? 1 : -1;
-			gun.Fire (fireDirection);
-		}
-	}
+		if (shootLeft && gm.GamePaused > 0)
+			gun.Fire(-1);
+        if (shootRight && gm.GamePaused > 0)
+            gun.Fire(1);
+    }
 }
