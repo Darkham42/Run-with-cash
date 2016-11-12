@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour {
 		rb = GetComponent<Rigidbody> ();
 		trajectory = Vector3.Slerp (Vector3.back, Vector3.up, angle / 90f);
 		rb.AddForce(trajectory * setThrow (distance), ForceMode.Impulse);
-		rb.AddTorque (Vector3.left * 400);
+		rb.AddTorque (Vector3.left * 800);
 	}
 
 	void Update () {
