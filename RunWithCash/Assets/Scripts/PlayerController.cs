@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour
         bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
         bool copTouched = cube.GetComponent<TestPhysic>().CopTouched;
         bool cashTouched = cube.GetComponent<TestPhysic>().TouchedCashBonus;
+        bool ammoTouched = cube.GetComponent<TestPhysic>().TouchedAmmoBonus;
+        bool dynamiteTouched = cube.GetComponent<TestPhysic>().TouchedDynamiteBonus;
 
         if ((!touched && !carTouched && !copTouched))
         {
@@ -144,6 +146,22 @@ public class PlayerController : MonoBehaviour
             gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedCashGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedCashBonus = false;
+        }
+
+        if (ammoTouched)
+        {
+            //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            gm.PlaySoundMulti(0);
+            Destroy(cube.GetComponent<TestPhysic>().TouchedAmmoGameObject.transform.parent.gameObject);
+            cube.GetComponent<TestPhysic>().TouchedAmmoBonus = false;
+        }
+
+        if (dynamiteTouched)
+        {
+           //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            gm.PlaySoundMulti(0);
+            Destroy(cube.GetComponent<TestPhysic>().TouchedDynamiteGameObject.transform.parent.gameObject);
+            cube.GetComponent<TestPhysic>().TouchedDynamiteBonus = false;
         }
 
         // Accélération du véhicule
