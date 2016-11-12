@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour {
     private ControllerMove controller;
 	private Transform target;
 
-    public GameManager gm;
+    GameManager gm;
 
     void Start () {
 		controller = GetComponent<ControllerMove>();
