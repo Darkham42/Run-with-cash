@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (Gun))]
+[RequireComponent (typeof (Projectile))]
 public class FireController : MonoBehaviour {
 
 	private ControllerMove controller;
+	private Gun gun;
 	public Projectile item;
 	float RayDistance; 
 	public float maxRange = 8;
@@ -13,6 +16,7 @@ public class FireController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<ControllerMove>();
+		gun = GetComponent<Gun> ();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +30,10 @@ public class FireController : MonoBehaviour {
 			if (Physics.Raycast (transform.position, Vector3.back, out hit, maxRange)) {
 				newProjectile.distance = hit.distance;
 			}
+		}
+		if (Input.GetButtonDown ("Fire2") ^ Input.GetButtonDown ("Fire3")) {
+			Debug.Log ("Gun powa!");
+			gun.Fire ();
 		}
 	}
 }
