@@ -12,6 +12,8 @@ public class TerrainManager : MonoBehaviour
     public GameObject CivilianCar;
     public GameObject CopCar;
     public GameObject CashBag;
+    public GameObject AmmoBonus;
+    public GameObject DynamiteBonus;
 
     private int numberGenerated = 0;
     private Vector3 m_referencePosition;
@@ -74,9 +76,21 @@ public class TerrainManager : MonoBehaviour
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 50)
+            if (Random.Range(0, 100) > 90)
             {
                 GameObject tmp = GameObject.Instantiate(CashBag) as GameObject;
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
+            }
+
+            if (Random.Range(0, 100) > 90)
+            {
+                GameObject tmp = GameObject.Instantiate(AmmoBonus) as GameObject;
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
+            }
+
+            if (Random.Range(0, 100) > 90)
+            {
+                GameObject tmp = GameObject.Instantiate(DynamiteBonus) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
         }

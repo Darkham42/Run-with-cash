@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour
         bool carTouched = cube.GetComponent<TestPhysic>().CarTouched;
         bool copTouched = cube.GetComponent<TestPhysic>().CopTouched;
         bool cashTouched = cube.GetComponent<TestPhysic>().TouchedCashBonus;
+        bool ammoTouched = cube.GetComponent<TestPhysic>().TouchedAmmoBonus;
+        bool dynamiteTouched = cube.GetComponent<TestPhysic>().TouchedDynamiteBonus;
 
         if ((!touched && !carTouched && !copTouched))
         {
@@ -146,21 +148,40 @@ public class PlayerController : MonoBehaviour
             cube.GetComponent<TestPhysic>().TouchedCashBonus = false;
         }
 
-        // Accélération du véhicule
-        bool up = Input.GetKeyDown(KeyCode.Z);
-        float right = Input.GetAxis("Trigger Right");
-        if (right > 0.1f || up)
-            controller.Speed(right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
-        else
+        if (ammoTouched)
         {
+            //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            gm.PlaySoundMulti(0);
+            Destroy(cube.GetComponent<TestPhysic>().TouchedAmmoGameObject.transform.parent.gameObject);
+            cube.GetComponent<TestPhysic>().TouchedAmmoBonus = false;
+        }
+
+        if (dynamiteTouched)
+        {
+           //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            gm.PlaySoundMulti(0);
+            Destroy(cube.GetComponent<TestPhysic>().TouchedDynamiteGameObject.transform.parent.gameObject);
+            cube.GetComponent<TestPhysic>().TouchedDynamiteBonus = false;
+        }
+
+        // Accélération du véhicule
+        bool up = Input.GetKey(KeyCode.Z);
+        float right = Input.GetAxis("Trigger Right");
+        if (right > 0.1f)
+            controller.Speed(right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+        else if (up) {
+            controller.Speed(1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+        } else {
             controller.StopSpeed(0.5f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
         }
 
         // Décélération du véhicule
-        bool down = Input.GetKeyDown(KeyCode.S);
+        bool down = Input.GetKey(KeyCode.S);
         float left = Input.GetAxis("Trigger Left");
-        if (left > 0.1f ||down)
+        if (left > 0.1f)
             controller.Brake(left * speedMin * Time.fixedDeltaTime * gm.GamePaused);
+        else if (down)
+            controller.Brake(1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
         else
             controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime * gm.GamePaused);
 
