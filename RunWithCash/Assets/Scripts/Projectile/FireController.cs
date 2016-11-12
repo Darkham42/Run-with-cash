@@ -35,21 +35,27 @@ public class FireController : MonoBehaviour {
         bool shootLeft = Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.K);
         bool shootRight = Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.M);
 
-        if (dynamite && gm.GamePaused > 0) {
+        if (dynamite && gm.GamePaused > 0 && gm.dynamite > 0) {
 			RaycastHit hit;
 			Projectile newProjectile = Instantiate (item, transform.position, transform.rotation) as Projectile;
 
             gm.PlaySoundMulti(2);
-
+            gm.dynamite--;
 			newProjectile.GetComponent<Rigidbody> ().AddForce (Vector3.forward * rectifSpeedCar, ForceMode.Impulse);
 			newProjectile.distance = maxRange;
 			if (Physics.BoxCast (transform.position, new Vector3 (1, 1, 1), Vector3.back, out hit, new Quaternion (0, 0, 0, 0), maxRange)) {
 				newProjectile.distance = hit.distance;
 			}
 		}
-		if (shootLeft && gm.GamePaused > 0)
-			gun.Fire(-1);
-        if (shootRight && gm.GamePaused > 0)
+		if (shootLeft && gm.GamePaused > 0 && gm.ammo > 0)
+        {
+            gun.Fire(-1);
+            gm.ammo--;
+        }
+        if (shootRight && gm.GamePaused > 0 && gm.ammo > 0)
+        {
             gun.Fire(1);
+            gm.ammo--;
+        }
     }
 }
