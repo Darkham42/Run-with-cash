@@ -69,12 +69,12 @@ public class GameManager : MonoBehaviour
                 float highScore = PlayerPrefs.GetFloat("HighScore", 0);
                 if (timer > highScore) {
                     PlayerPrefs.SetFloat("HighScore", timer);
-                    UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = "You are the new High Score with " + string.Format("{0'0}:{1'00}", Mathf.Floor(timer / 60), timer % 60);
+                    UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "You are the new High Score with " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
                 } else {
-                    UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = " " + string.Format("{0'0}:{1'00}", Mathf.Floor(highScore / 60), highScore % 60);
+                    UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "The High Score : " + string.Format("{0}'{1}", Mathf.Floor(highScore / 60), highScore % 60);
                 }
                 UI.transform.FindChild("Score").gameObject.SetActive(true);
-                UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = "The cops caught you in " + string.Format("{0'0}:{1'00}", Mathf.Floor(timer / 60), timer % 60);
+                UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = "The cops caught you in " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
                 UI.transform.FindChild("HighScore").gameObject.SetActive(true);
 
             }
