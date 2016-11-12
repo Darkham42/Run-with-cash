@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<ControllerMove>();
         offSet = transform.position.x;
-
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -65,6 +64,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            gm.RemoveCash(1);
             if (transform.position.x > 0)
             {
                 controller.Turn(-0.3f, 50);

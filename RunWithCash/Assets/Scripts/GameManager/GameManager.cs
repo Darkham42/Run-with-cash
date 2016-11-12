@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime * GamePaused;
-        if (cash == 0)
-            GameOver = true;
+        if (cash <= 0)
+            Debug.Log("You lose !");
+            //GameOver = true;
 
         startTimer -= Time.deltaTime;
         if (startTimer <= 0.0f)

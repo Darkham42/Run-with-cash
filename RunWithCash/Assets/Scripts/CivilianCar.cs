@@ -7,10 +7,12 @@ public class CivilianCar : MonoBehaviour {
 
     private float timer = 0.0f;
     GameObject player;
+    GameManager gm;
 
 	void Start () {
         player = GameObject.Find("Car");
-	}
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 	
 	void Update () {
 	    if (Touched)
@@ -21,6 +23,7 @@ public class CivilianCar : MonoBehaviour {
         if (timer > 5 ||
             player.transform.position.z - transform.position.z > 50)
         {
+            gm.RemoveCash(2);
             Destroy(this.gameObject);
         }
 	}

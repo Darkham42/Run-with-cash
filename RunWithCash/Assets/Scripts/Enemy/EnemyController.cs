@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour {
 	void Start () {
 		controller = GetComponent<ControllerMove>();
         target = GameObject.Find("Car").transform;
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
 	void Update () {
@@ -26,7 +27,8 @@ public class EnemyController : MonoBehaviour {
 		}
         // Destruction de la voiture de Police
 		if (target.position.z - transform.position.z > 50) {
-			die ();
+            gm.RemoveCash(10);
+			die();
         }
 	}
 
