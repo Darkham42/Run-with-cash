@@ -10,8 +10,10 @@ public class Projectile : MonoBehaviour {
 	public float distance = 2;
 	float angle = 45f;
 	Vector3 trajectory;
+	Vector3 debugTarget;
 
 	void Start () {
+		debugTarget = new Vector3 (transform.position.x, 0, transform.position.z - distance);
 		rb = GetComponent<Rigidbody> ();
 		trajectory = Vector3.Slerp (Vector3.back, Vector3.up, angle / 90f);
 		rb.AddForce(trajectory * setThrow (distance), ForceMode.Impulse);
@@ -19,9 +21,11 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void Update () {
-		if (GetComponent<TestPhysic> ().CopTouched) {
+		if (transform.position.y < 0) {
+			Debug.Log ("Destroy");
 			Destroy (this.gameObject);
 		}
+		Debug.DrawLine (transform.position, debugTarget, Color.green);
 //		Debug.DrawLine (Vector3.zero, hTrajectory, Color.blue);
 //		Debug.DrawLine (Vector3.zero, trajectory, Color.green);
 	}

@@ -29,7 +29,10 @@ public class TestPhysic : MonoBehaviour
         {
             CopTouched = true;
             CopGameObject = other.gameObject;
-        }
+		}
+		else if (other.tag == "Projectile")
+		{
+		}
         else
         {
             Touched = true;
