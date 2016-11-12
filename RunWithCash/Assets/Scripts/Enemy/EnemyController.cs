@@ -8,25 +8,58 @@ public class EnemyController : MonoBehaviour {
 	private Transform target;
 	bool inScreen;
 	bool alive = true;
-	float speed;
-
+	public float normalSpeed = 35;
+	public float attackSpeed = 35;
+	public float recoverySpeed = 25;
+	public float distanceView = 6;
+	public bool canAttack = true;
+	public bool isAttacking = false;
     public GameObject Explosion;
 
     GameManager gm;
-	public float maxRectif = 8;
+	public float maxRectif = 20;
 
 	void Start () {
 		controller = GetComponent<ControllerMove>();
+		canAttack = false;
+		controller.speed = normalSpeed;
         target = GameObject.Find("Car").transform;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
 	void Update () {
 
+		// Si devant le joueur
+		if ((target.position.z - transform.position.z) <= -1) {
+			canAttack = false;
+			controller.speed = recoverySpeed;
+		}
+
 		// Si au niveau du joueur
 		if ((target.position.z - transform.position.z) <= 1.5) {
-			changeDirection();
+			if (canAttack) {
+				canAttack = false;
+				StartCoroutine (Attacking ());
+			}
 		}
+
+		// Si en retard après attack raté
+		if ((target.position.z - transform.position.z) >= 12) {
+			controller.speed = normalSpeed;
+			canAttack = true;
+		}
+
+		// Esquiver voiture civile
+		RaycastHit hit;
+		if (Physics.BoxCast (transform.position, new Vector3 (2.5f, 2.5f, 2.5f), Vector3.forward, out hit, new Quaternion (0f, 0f, 0f, 0f), distanceView)) {
+			if (!isAttacking) {
+				if (hit.collider.CompareTag ("CivilianCar")) {
+					Debug.Log ("Vehicule civile droit devant.");
+				}
+			}
+		}
+
+
         // Destruction de la voiture de Police
 		if (target.position.z - transform.position.z > 50) {
 			die();
@@ -68,14 +101,31 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
+	void straightenUp () {
+		float direction = Mathf.Sign (transform.rotation.y) * -1;
+		controller.Turn (direction, maxRectif);
+	}
+
 	public void getHit() {
-		controller.speed = 0;
+		die ();
 	}
 
 	public void die() {
         GameObject tmp = GameObject.Instantiate(Explosion) as GameObject;
         tmp.transform.position = this.transform.position;
-        Destroy(this.gameObject);
 		GameObject.Find("TerrainPoolManager").GetComponent<TerrainManager>().nbrCops--;
+		Destroy(this.gameObject);
+	}
+
+	IEnumerator Attacking () {
+		Debug.Log ("début attaque");
+		isAttacking = true;
+		controller.speed = attackSpeed;
+		changeDirection();
+		yield return new WaitForSeconds(.4f);
+		Debug.Log ("fin attaque");
+		isAttacking = false;
+		controller.speed = recoverySpeed;
+		straightenUp ();
 	}
 }
