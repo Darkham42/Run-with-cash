@@ -7,8 +7,8 @@ public class Projectile : MonoBehaviour {
 	// Après avoir instantié, définir la distance jusqu'à la cible.
 
 	Rigidbody rb;
-	public float distance = 2;
-	float angle = 45f;
+	public float distance;
+	float angle = 20f;
 	Vector3 trajectory;
 	Vector3 debugTarget;
 
@@ -22,7 +22,6 @@ public class Projectile : MonoBehaviour {
 
 	void Update () {
 		if (transform.position.y < 0) {
-			Debug.Log ("Destroy");
 			Destroy (this.gameObject);
 		}
 //		Debug.DrawLine (transform.position, debugTarget, Color.green);
@@ -39,6 +38,9 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("CopCar")) {
+			Debug.Log ("Cop touche par dynamite");
+			Transform hitParent = other.gameObject.transform.parent as Transform;
+			hitParent.GetComponent <EnemyController> ().die ();
 			Destroy (this.gameObject);
 		}
 		/*

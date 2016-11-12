@@ -12,20 +12,21 @@ public class Gun : MonoBehaviour {
 	public void Fire(int _direction) {
 		direction = Mathf.Sign(_direction);
 		Debug.Log ("directon : " + direction);
-		StartCoroutine (Animation ());
-		Debug.DrawRay (transform.position, Vector3.right * Mathf.Sign(direction) * 5, Color.cyan, 2f);
-		Debug.Break ();
+		StartCoroutine (Animation (direction));
 		if (Physics.Raycast (transform.position, Vector3.right * Mathf.Sign(direction), out hit)) {
 			if (hit.collider.CompareTag ("CopCar")) {
-				Debug.Log ("Touché !");
 				Transform hitParent = hit.collider.gameObject.transform.parent as Transform;
-//				hit.collider.gameObject.GetComponent <EnemyController> ().die ();
+				hitParent.GetComponent <EnemyController> ().die ();
 			}
 		}
 	}
 
-	IEnumerator Animation() {
-		Debug.Log ("Pew ! Pew ! Pew !");
+	IEnumerator Animation(float _direction) {
+		if (_direction >= 0) {
+			Debug.Log ("Pew ! Pew ! Pew !");
+		} else {
+			Debug.Log ("Pan ! Pan ! Pan !");
+		}
 		yield return new WaitForSeconds(1f);
 	}
 
