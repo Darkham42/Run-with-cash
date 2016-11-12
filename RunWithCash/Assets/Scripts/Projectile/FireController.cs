@@ -2,7 +2,6 @@
 using System.Collections;
 
 [RequireComponent (typeof (Gun))]
-[RequireComponent (typeof (Projectile))]
 public class FireController : MonoBehaviour {
 
 	private ControllerMove controller;
