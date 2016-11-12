@@ -23,6 +23,16 @@ public class TestPhysic : MonoBehaviour
     [HideInInspector]
     public GameObject TouchedCashGameObject = null;
 
+    [HideInInspector]
+    public bool TouchedAmmoBonus = false;
+    [HideInInspector]
+    public GameObject TouchedAmmoGameObject = null;
+
+    [HideInInspector]
+    public bool TouchedDynamiteBonus = false;
+    [HideInInspector]
+    public GameObject TouchedDynamiteGameObject = null;
+
     void OnTriggerEnter(Collider other)
     {
 
@@ -48,6 +58,16 @@ public class TestPhysic : MonoBehaviour
             TouchedCashBonus = true;
             TouchedCashGameObject = other.gameObject;
         }
+        else if (other.tag == "AmmoBonus")
+        {
+            TouchedAmmoBonus = true;
+            TouchedAmmoGameObject = other.gameObject;
+        }
+        else if (other.tag == "DynamiteBonus")
+        {
+            TouchedDynamiteBonus = true;
+            TouchedDynamiteGameObject = other.gameObject;
+        }
         else
         {
             Touched = true;
@@ -65,5 +85,7 @@ public class TestPhysic : MonoBehaviour
         CarTouched = false;
         CopTouched = false;
         TouchedCashBonus = false;
+        TouchedAmmoBonus = false;
+        TouchedDynamiteBonus = false;
     }
 }
