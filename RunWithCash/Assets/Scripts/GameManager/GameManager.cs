@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public bool GameOver = false;
     public float GamePaused = .0f;
     private int cash;
+    public int dynamite = 0;
+    public int ammo = 0;
     private float timer;
 
     public List<AudioClip> Sounds;
@@ -51,6 +53,12 @@ public class GameManager : MonoBehaviour
         UI.transform.FindChild("Cash").GetComponent<Text>().text = "$ " + (cash * 1000).ToString();
     }
 
+    void UpdateAmmosUI()
+    {
+        UI.transform.FindChild("AmmoTommy").GetComponent<Text>().text = "x" + ammo.ToString();
+        UI.transform.FindChild("AmmoDynamite").GetComponent<Text>().text = "x" + dynamite.ToString();
+    }
+
     void UpdateStartTimeUI()
     {
         int timer = (int)startTimer + 1;
@@ -70,6 +78,7 @@ public class GameManager : MonoBehaviour
 
         UpdateStartTimeUI();
         UpdateCashUI();
+        UpdateAmmosUI();
 
         if (startTimer <= 0.0f && gameStarted == false)
         {
@@ -84,6 +93,10 @@ public class GameManager : MonoBehaviour
             if (GamePaused <= 0.0f)
             {
                 GamePaused = 0.0f;
+                UI.transform.FindChild("DynamiteImage").gameObject.SetActive(false);
+                UI.transform.FindChild("TommyImage").gameObject.SetActive(false);
+                UI.transform.FindChild("AmmoDynamite").gameObject.SetActive(false);
+                UI.transform.FindChild("AmmoTommy").gameObject.SetActive(false);
                 gameDefinitelyOver = true;
                 UI.transform.FindChild("GameOver").gameObject.SetActive(true);
                 float highScore = PlayerPrefs.GetFloat("HighScore", 0);

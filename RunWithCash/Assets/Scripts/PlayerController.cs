@@ -150,7 +150,8 @@ public class PlayerController : MonoBehaviour
 
         if (ammoTouched)
         {
-            //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            if (gm.ammo < 99)
+                gm.ammo++;
             gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedAmmoGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedAmmoBonus = false;
@@ -158,7 +159,8 @@ public class PlayerController : MonoBehaviour
 
         if (dynamiteTouched)
         {
-           //gm.AddCash(cube.GetComponent<TestPhysic>().TouchedCashGameObject.GetComponent<CashBonus>().CashEarned);
+            if (gm.dynamite < 99)
+                gm.dynamite++;
             gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedDynamiteGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedDynamiteBonus = false;
