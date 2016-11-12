@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CivilianCar : MonoBehaviour {
 
     public bool Touched = false;
+    public List<Material> Colors;
 
     private float timer = 0.0f;
     GameObject player;
@@ -12,6 +14,9 @@ public class CivilianCar : MonoBehaviour {
 	void Start () {
         player = GameObject.Find("Car");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        int rnd = Random.Range(0, 3);
+        transform.FindChild("Cube").GetComponent<MeshRenderer>().material = Colors[rnd];
     }
 	
 	void Update () {

@@ -65,10 +65,13 @@ public class TerrainManager : MonoBehaviour
 
         chunk.transform.position = m_referencePosition + new Vector3(offset, 0, DistanceOffset * numberGenerated);
 
-        if (Random.Range(0, 50) > 46)
+        if (increment)
         {
-            GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
-            tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+            if (Random.Range(0, 50) > 46)
+            {
+                GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+            }
         }
 
         m_chunks.Add(chunk);
