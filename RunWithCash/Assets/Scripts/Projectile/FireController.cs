@@ -31,7 +31,7 @@ public class FireController : MonoBehaviour {
 			Debug.Break ();
 		}
 		*/
-		if (Input.GetButtonDown ("Fire1")) {
+		if (Input.GetButtonDown ("Fire1") && gm.GamePaused > 0) {
 			RaycastHit hit;
 			Projectile newProjectile = Instantiate (item, transform.position, transform.rotation) as Projectile;
 
@@ -40,11 +40,10 @@ public class FireController : MonoBehaviour {
 			newProjectile.GetComponent<Rigidbody> ().AddForce (Vector3.forward * rectifSpeedCar, ForceMode.Impulse);
 			newProjectile.distance = maxRange;
 			if (Physics.BoxCast (transform.position, new Vector3 (1, 1, 1), Vector3.back, out hit, new Quaternion (0, 0, 0, 0), maxRange)) {
-				Debug.Log ("Police a portee.");
 				newProjectile.distance = hit.distance;
 			}
 		}
-		if (Input.GetButtonDown ("Fire2") ^ Input.GetButtonDown ("Fire3")) {
+		if ((Input.GetButtonDown ("Fire2") ^ Input.GetButtonDown ("Fire3")) && gm.GamePaused > 0) {
 			int fireDirection = Input.GetButtonDown ("Fire2") ? 1 : -1;
 			gun.Fire (fireDirection);
 		}
