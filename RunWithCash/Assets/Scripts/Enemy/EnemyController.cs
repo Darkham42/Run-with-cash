@@ -4,15 +4,17 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody))]
 public class EnemyController : MonoBehaviour {
 
-	private ControllerMove controller;
+    bool inScreen;
+    bool alive = true;
+    float speed;
+    public float maxRectif = 8;
+
+    private ControllerMove controller;
 	private Transform target;
-	bool inScreen;
-	bool alive = true;
-	float speed;
 
-	public float maxRectif = 8;
+    public GameManager gm;
 
-	void Start () {
+    void Start () {
 		controller = GetComponent<ControllerMove>();
         target = GameObject.Find("Car").transform;
 	}
@@ -27,6 +29,7 @@ public class EnemyController : MonoBehaviour {
         if (target.position.z - transform.position.z > 50) {
             Destroy(this.gameObject);
             GameObject.Find("TerrainPoolManager").GetComponent<TerrainManager>().nbrCops--;
+            gm.RemoveCash(5);
         }
 	}
 

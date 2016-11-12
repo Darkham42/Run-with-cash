@@ -129,7 +129,6 @@ public class TerrainManager : MonoBehaviour
             GameObject tmp = GameObject.Instantiate(CopCar) as GameObject;
             tmp.transform.position = new Vector3(Random.Range(-4.0f, 4.0f), 0, Player.transform.position.z - 30);
             nbrCops++;
-            Debug.Log("enemis : " + nbrCops);
         }
 
         //Debug.Log(numberGenerated);
