@@ -12,10 +12,13 @@ public class FireController : MonoBehaviour {
 	public float rectifSpeedCar = 30;
 	int layerMask;
 
+    GameManager gm;
+
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<ControllerMove>();
 		gun = GetComponent<Gun> ();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -31,6 +34,8 @@ public class FireController : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire1")) {
 			RaycastHit hit;
 			Projectile newProjectile = Instantiate (item, transform.position, transform.rotation) as Projectile;
+
+            gm.PlaySoundMulti(2);
 
 			newProjectile.GetComponent<Rigidbody> ().AddForce (Vector3.forward * rectifSpeedCar, ForceMode.Impulse);
 			newProjectile.distance = maxRange;

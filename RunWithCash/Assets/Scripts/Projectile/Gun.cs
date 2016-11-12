@@ -7,12 +7,18 @@ public class Gun : MonoBehaviour {
 	float direction = 1; // possitif = droite, negatif = gauche
 	RaycastHit hit;
 
+    GameManager gm;
+
 	void Start () {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
 	public void Fire(int _direction) {
 		direction = Mathf.Sign(_direction);
 		StartCoroutine (Animation (direction));
+
+        gm.PlaySoundMulti(3);
+
 		if (Physics.Raycast (transform.position + Vector3.back, Vector3.right * Mathf.Sign(direction), out hit)) {
 			if (hit.collider.CompareTag ("CopCar")) {
 				Transform hitParent = hit.collider.gameObject.transform.parent as Transform;

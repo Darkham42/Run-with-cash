@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     private int cash;
     private float timer;
 
+    public List<AudioClip> Sounds;
+
     bool gameStarted = false;
     bool gameDefinitelyOver = false;
 
@@ -17,6 +20,20 @@ public class GameManager : MonoBehaviour
     float startTimer = 3.0f;
     GameObject UI;
 
+    AudioSource oneShot;
+    AudioSource multi;
+
+    public void PlaySound(int nbr)
+    {
+        if (GetComponent<AudioSource>().isPlaying == false)
+            GetComponent<AudioSource>().PlayOneShot(Sounds[nbr]);
+    }
+
+    public void PlaySoundMulti(int nbr)
+    {
+            GetComponent<AudioSource>().PlayOneShot(Sounds[nbr]);
+    }
+
     void Start()
     {
         cash = 50;
@@ -24,6 +41,9 @@ public class GameManager : MonoBehaviour
         UI = GameObject.Find("CanvasUI");
         player = GameObject.Find("Car");
         UpdateStartTimeUI();
+
+        oneShot = GetComponents<AudioSource>()[0];
+        multi = GetComponents<AudioSource>()[1];
     }
 
     void UpdateCashUI()
@@ -67,10 +87,13 @@ public class GameManager : MonoBehaviour
                 gameDefinitelyOver = true;
                 UI.transform.FindChild("GameOver").gameObject.SetActive(true);
                 float highScore = PlayerPrefs.GetFloat("HighScore", 0);
-                if (timer > highScore) {
+                if (timer > highScore)
+                {
                     PlayerPrefs.SetFloat("HighScore", timer);
                     UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "You are the new High Score with " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
-                } else {
+                }
+                else
+                {
                     UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "The High Score : " + string.Format("{0}'{1}", Mathf.Floor(highScore / 60), highScore % 60);
                 }
                 UI.transform.FindChild("Score").gameObject.SetActive(true);
@@ -94,6 +117,7 @@ public class GameManager : MonoBehaviour
             cash -= value;
         }
         UpdateCash();
+        PlaySound(4);
         player.GetComponent<PlayerController>().SpawnParticles();
     }
 
