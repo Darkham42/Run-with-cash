@@ -18,11 +18,9 @@ public class TestDynamite : MonoBehaviour {
 			if (groundPlane.Raycast (ray, out rayDistance)) {
 				Vector3 point = ray.GetPoint (rayDistance);
 				Debug.DrawLine (ray.origin, point, Color.black, 2f);
-				Projectile newProjectile = Instantiate (item, Vector3.zero, transform.rotation) as Projectile;
-				newProjectile.direction = Vector3.Angle (Vector3.right, point);
-				float range = Vector3.Distance (Vector3.zero, point);
-				float speed = range / 0;
-				newProjectile.strenght = Vector3.Distance (Vector3.zero, point);
+				// Instance du projectile + définition distance.
+				Projectile newProjectile = Instantiate (item, transform.position, transform.rotation) as Projectile;
+				newProjectile.distance = Vector3.Distance (Vector3.zero, point);
 			}
 		}
 	}
