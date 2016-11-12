@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuManager : MonoBehaviour {
@@ -12,4 +13,16 @@ public class MenuManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void StartGame() {
+        SceneManager.LoadScene("main");
+    }
+
+    public void HowToPlay() {
+        //TODO
+    }
+
+    public void ExitGame() {
+        Application.Quit();
+    }
 }

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateCashUI()
     {
-        UI.transform.FindChild("Cash").GetComponent<Text>().text = "CASH : " + (cash * 1000).ToString();
+        UI.transform.FindChild("Cash").GetComponent<Text>().text = "$ " + (cash * 1000).ToString();
     }
 
     void UpdateStartTimeUI()
