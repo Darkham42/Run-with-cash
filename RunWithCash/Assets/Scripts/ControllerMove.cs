@@ -16,6 +16,8 @@ public class ControllerMove : MonoBehaviour {
     private float boostSpeed = 0;
     private float brakeSpeed = 0;
 
+    GameManager gm;
+
     /*
     private Vector3 moveDirection = Vector3.zero;
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class ControllerMove : MonoBehaviour {
     public void Start() {
         lookAtPoint = transform.FindChild("LookAtPoint").gameObject;
         lookAtPoint.transform.parent = null;
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void FixedUpdate() {
@@ -41,20 +44,20 @@ public class ControllerMove : MonoBehaviour {
     }
 
     public void MoveForward() {
-        transform.position += (transform.forward * speed * Time.fixedDeltaTime) + transform.forward * boostSpeed - transform.forward * brakeSpeed;
+        transform.position += (transform.forward * speed * Time.fixedDeltaTime * gm.GamePaused) + transform.forward * boostSpeed - transform.forward * brakeSpeed;
         lookAtPoint.transform.position = transform.position + new Vector3(lookAtPointOffset, 0, 7);
     }
 
     public void Turn(float rotation, float speed) {
-        Vector3 turnVector = new Vector3(rotation * (speedTurn * speed) * Time.fixedDeltaTime, 0, 10);
+        Vector3 turnVector = new Vector3(rotation * (speedTurn * speed) * Time.fixedDeltaTime * gm.GamePaused, 0, 10);
 
         if (Mathf.Abs(rotation) < 0.3f) {
             if (lookAtPointOffset > 0) {
-                lookAtPointOffset -= speedTurn * Time.fixedDeltaTime;
+                lookAtPointOffset -= speedTurn * Time.fixedDeltaTime * gm.GamePaused;
             }
 
             if (lookAtPointOffset < 0) {
-                lookAtPointOffset += speedTurn * Time.fixedDeltaTime;
+                lookAtPointOffset += speedTurn * Time.fixedDeltaTime * gm.GamePaused;
             }
         }
         

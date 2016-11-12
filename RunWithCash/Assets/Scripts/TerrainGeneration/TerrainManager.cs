@@ -19,10 +19,13 @@ public class TerrainManager : MonoBehaviour
     private GameObject Player;
     public int nbrCops = 0;
 
+    GameManager gm;
+
     void Start()
     {
         m_referencePosition = ReferencePosition.position;
         Player = GameObject.Find("Car");
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         for (numberGenerated = 0; numberGenerated < PregenerateNumber; ++numberGenerated)
         {
@@ -94,7 +97,7 @@ public class TerrainManager : MonoBehaviour
 
     void Update()
     {
-        timerRandom -= Time.deltaTime;
+        timerRandom -= Time.deltaTime * gm.GamePaused;
 
         if (timerRandom <= 0.0f)
         {
@@ -122,7 +125,7 @@ public class TerrainManager : MonoBehaviour
         }
 
         // Génération des voitures de Police
-        timerCopSpawn += Time.deltaTime;
+        timerCopSpawn += Time.deltaTime * gm.GamePaused;
         if (timerCopSpawn > 4 && nbrCops <= 5)
         {
             timerCopSpawn = 0;

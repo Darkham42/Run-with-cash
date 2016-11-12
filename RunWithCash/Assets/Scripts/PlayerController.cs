@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<ControllerMove>();
         offSet = transform.position.x;
 
-        GameObject.Find("GameManager").GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void FixedUpdate()
@@ -78,16 +78,18 @@ public class PlayerController : MonoBehaviour
         // Accélération du véhicule
         float right = Input.GetAxis("Trigger Right");
         if (right > 0.1f)
-            controller.Speed(right * speedMax * Time.fixedDeltaTime);
+            controller.Speed(right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
         else
-            controller.StopSpeed(0.5f * speedMax * Time.fixedDeltaTime);
+        {
+            controller.StopSpeed(0.5f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+        }
 
         // Décélération du véhicule
         float left = Input.GetAxis("Trigger Left");
         if (left > 0.1f)
-            controller.Brake(left * speedMin * Time.fixedDeltaTime);
+            controller.Brake(left * speedMin * Time.fixedDeltaTime * gm.GamePaused);
         else
-            controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime);
+            controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime * gm.GamePaused);
 
         // La caméra suit de façon fixe le véhicule
         Vector3 pos = transform.FindChild("Cube").position;
