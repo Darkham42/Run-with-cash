@@ -71,13 +71,13 @@ public class TerrainManager : MonoBehaviour
             if (Random.Range(0, 50) > 46)
             {
                 GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
-                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 95)
+            if (Random.Range(0, 100) > 50)
             {
                 GameObject tmp = GameObject.Instantiate(CashBag) as GameObject;
-                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-5.0f, 5.0f), 0, 0);
+                tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
         }
 
