@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: ef495141a6a5b5a4e84cd106cd045428
-timeCreated: 1478948853
+guid: b367a7fede072d846b30c6dfcef22511
+timeCreated: 1478953464
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Jazz Club
+  - Intro Rust G
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
