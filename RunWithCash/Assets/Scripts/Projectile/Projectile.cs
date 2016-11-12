@@ -25,9 +25,7 @@ public class Projectile : MonoBehaviour {
 			Debug.Log ("Destroy");
 			Destroy (this.gameObject);
 		}
-		Debug.DrawLine (transform.position, debugTarget, Color.green);
-//		Debug.DrawLine (Vector3.zero, hTrajectory, Color.blue);
-//		Debug.DrawLine (Vector3.zero, trajectory, Color.green);
+//		Debug.DrawLine (transform.position, debugTarget, Color.green);
 	}
 
 	// distance = écart en X avec la cible à l'arrière

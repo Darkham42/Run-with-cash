@@ -31,8 +31,8 @@ public class FireController : MonoBehaviour {
 			}
 		}
 		if (Input.GetButtonDown ("Fire2") ^ Input.GetButtonDown ("Fire3")) {
-			Debug.Log ("Gun powa!");
-			gun.Fire ();
+			int fireDirection = Input.GetButtonDown ("Fire2") ? 1 : -1;
+			gun.Fire (fireDirection);
 		}
 	}
 }
