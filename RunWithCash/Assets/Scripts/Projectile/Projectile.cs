@@ -4,9 +4,10 @@ using System.Collections;
 [RequireComponent (typeof (Rigidbody))]
 public class Projectile : MonoBehaviour {
 
-	// Après avoir instantié, définir la distance jusqu'à la cible.
+    // Après avoir instantié, définir la distance jusqu'à la cible.
+    public GameObject Explosion;
 
-	Rigidbody rb;
+    Rigidbody rb;
 	public float distance;
 	float angle = 20f;
 	Vector3 trajectory;
@@ -24,7 +25,9 @@ public class Projectile : MonoBehaviour {
 
 	void Update () {
 		if (transform.position.y < 0) {
-			Destroy (this.gameObject);
+            GameObject tmp = GameObject.Instantiate(Explosion) as GameObject;
+            tmp.transform.position = this.transform.position;
+            Destroy (this.gameObject);
 		}
 //		Debug.DrawLine (transform.position, debugTarget, Color.green);
 	}
@@ -41,6 +44,10 @@ public class Projectile : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.CompareTag ("CopCar")) {
 			Debug.Log ("Cop touche par dynamite");
+
+            GameObject tmp = GameObject.Instantiate(Explosion) as GameObject;
+            tmp.transform.position = this.transform.position;
+
             gm.PlaySoundMulti(1);
 			Transform hitParent = other.gameObject.transform.parent as Transform;
 			hitParent.GetComponent <EnemyController> ().die ();

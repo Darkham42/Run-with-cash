@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
                 cube.GetComponent<TestPhysic>().CarGameObject.transform.parent.GetComponent<CivilianCar>().Touched = true;
             }
-            gm.RemoveCash(2);
+            gm.RemoveCash(5);
             AddInvicibility();
         }
         else if (copTouched)

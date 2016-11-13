@@ -83,6 +83,18 @@ public class EnemyController : MonoBehaviour {
         {
             getHit();
         }
+
+        if (t.CopTouched)
+        {
+            if (transform.position.x > t.CopGameObject.transform.parent.position.x)
+            {
+                t.CopGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
+            }
+            else
+            {
+                t.CopGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
+            }
+        }
     }
 
 	void changeDirection() {
