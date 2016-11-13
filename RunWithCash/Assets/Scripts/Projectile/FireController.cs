@@ -13,14 +13,17 @@ public class FireController : MonoBehaviour {
 
     GameManager gm;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 		gun = GetComponent<Gun> ();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 		Debug.DrawRay (transform.position, Vector3.back * maxRange, Color.red);
         /*
 		RaycastHit hit2;
