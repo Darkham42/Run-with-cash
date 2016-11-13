@@ -8,10 +8,11 @@ public class EnemyController : MonoBehaviour {
 	private Transform target;
 	bool inScreen;
 	bool alive = true;
-	public float normalSpeed = 35;
-	public float attackSpeed = 35;
-	public float recoverySpeed = 25;
-	public float distanceView = 6;
+	public float normalSpeed = 35f;
+	public float attackSpeed = 35f;
+	public float recoverySpeed = 20f;
+	public float timeAttack = 1f;
+	public float distanceView = 6f;
 	public bool canAttack = true;
 	public bool isAttacking = false;
     public GameObject Explosion;
@@ -44,7 +45,7 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// Si en retard après attack raté
-		if ((target.position.z - transform.position.z) >= 12) {
+		if ((target.position.z - transform.position.z) >= 13) {
 			controller.speed = normalSpeed;
 			canAttack = true;
 		}
@@ -122,7 +123,7 @@ public class EnemyController : MonoBehaviour {
 		isAttacking = true;
 		controller.speed = attackSpeed;
 		changeDirection();
-		yield return new WaitForSeconds(.4f);
+		yield return new WaitForSeconds(timeAttack);
 		Debug.Log ("fin attaque");
 		isAttacking = false;
 		controller.speed = recoverySpeed;
