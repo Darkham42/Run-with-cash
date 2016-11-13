@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent (typeof (Gun))]
 public class FireController : MonoBehaviour {
 
-	private ControllerMove controller;
 	private Gun gun;
 	public Projectile item;
 	float RayDistance; 
@@ -16,7 +15,6 @@ public class FireController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		controller = GetComponent<ControllerMove>();
 		gun = GetComponent<Gun> ();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}

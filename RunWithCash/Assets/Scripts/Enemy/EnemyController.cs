@@ -6,8 +6,6 @@ public class EnemyController : MonoBehaviour {
 
 	private ControllerMove controller;
 	private Transform target;
-	bool inScreen;
-	bool alive = true;
 	public float normalSpeed = 35f;
 	public float attackSpeed = 35f;
 	public float recoverySpeed = 20f;
@@ -17,7 +15,7 @@ public class EnemyController : MonoBehaviour {
 	public bool isAttacking = false;
     public GameObject Explosion;
 
-    GameManager gm;
+//NUGameManager gm;
 	public float maxRectif = 20;
 
 	void Start () {
@@ -25,7 +23,7 @@ public class EnemyController : MonoBehaviour {
 		canAttack = false;
 		controller.speed = normalSpeed;
         target = GameObject.Find("Car").transform;
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+//NU	gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
 	void Update () {
