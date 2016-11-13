@@ -64,7 +64,6 @@
      <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\TerrainManager.cs" />
-     <Compile Include="Assets\Scripts\TestDynamite.cs" />
      <Compile Include="Assets\Scripts\TestPhysic.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
