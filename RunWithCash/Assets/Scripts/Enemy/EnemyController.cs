@@ -72,7 +72,6 @@ public class EnemyController : MonoBehaviour {
         //Debug.Log(GetComponentInChildren<TestPhysic>().CopTouched);
         if (t.CarTouched)
         {
-            getHit();
             if (transform.position.x > t.CarGameObject.transform.parent.position.x)
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
@@ -80,7 +79,8 @@ public class EnemyController : MonoBehaviour {
             else
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
-            }
+			}
+			getHit();
         }
         if (t.Touched &&
             !t.CopTouched &&
@@ -108,6 +108,11 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void getHit() {
+		StartCoroutine (dying ());
+	}
+
+	IEnumerator dying () {
+		yield return new WaitForSeconds (0.1f);
 		die ();
 	}
 
