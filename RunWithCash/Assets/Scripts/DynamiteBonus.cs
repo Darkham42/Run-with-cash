@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DynamiteBonus : MonoBehaviour {
 
-    public int DynamiteEarned = 1;
+    public int DynamiteEarned = 3;
 
     void Start()
     {
