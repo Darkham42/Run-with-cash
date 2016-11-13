@@ -8,7 +8,9 @@ public class PlayerController : MonoBehaviour
     private ControllerMove controller;
     private float offSet;
     public float speedMax;
-    public float speedMin;
+	public float speedMin;
+	public bool speedUp;
+	public bool speedDown;
     public Camera camera;
 
     public GameObject pe;
@@ -170,23 +172,30 @@ public class PlayerController : MonoBehaviour
         // Accélération du véhicule
         bool up = Input.GetKey(KeyCode.Z);
         float right = Input.GetAxis("Trigger Right");
-        if (right > 0.1f)
-            controller.Speed(right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
-        else if (up) {
-            controller.Speed(1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+		if (right > 0.1f) {
+			controller.Speed (right * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+			speedUp = true;
+		} else if (up) {
+			controller.Speed(1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+			speedUp = true;
         } else {
-            controller.StopSpeed(0.5f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
-        }
+			controller.StopSpeed(0.5f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+			speedUp = false;
+		}
 
         // Décélération du véhicule
         bool down = Input.GetKey(KeyCode.S);
         float left = Input.GetAxis("Trigger Left");
-        if (left > 0.1f)
-            controller.Brake(left * speedMin * Time.fixedDeltaTime * gm.GamePaused);
-        else if (down)
-            controller.Brake(1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
-        else
-            controller.StopBreak(0.5f * speedMin * Time.fixedDeltaTime * gm.GamePaused);
+		if (left > 0.1f) {
+			controller.Brake (left * speedMin * Time.fixedDeltaTime * gm.GamePaused);
+			speedDown = true;
+		} else if (down) {
+			controller.Brake (1f * speedMax * Time.fixedDeltaTime * gm.GamePaused);
+			speedDown = true;
+		} else {
+			controller.StopBreak (0.5f * speedMin * Time.fixedDeltaTime * gm.GamePaused);
+			speedDown = false;
+		}
 
         // La caméra suit de façon fixe le véhicule
         Vector3 pos = transform.FindChild("Cube").position;

@@ -6,13 +6,13 @@ public class EnemyController : MonoBehaviour {
 
 	private ControllerMove controller;
 	private Transform target;
-	public float normalSpeed = 35f;
-	public float attackSpeed = 35f;
-	public float recoverySpeed = 20f;
+	public float normalSpeed;
+	public float attackSpeed;
+	public float recoverySpeed;
 	public float timeAttack = 1f;
-	public float distanceView = 6f;
 	public bool canAttack = true;
 	public bool isAttacking = false;
+	public float speedTarget;
     public GameObject Explosion;
 
 //NUGameManager gm;
@@ -27,6 +27,14 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Update () {
+		
+		speedTarget = 
+			1 +
+			target.GetComponent<ControllerMove> ().boostSpeed -
+			target.GetComponent<ControllerMove> ().brakeSpeed;
+		
+		// si joueur accelère
+		controller.speed = normalSpeed * speedTarget;
 
 		// Si devant le joueur
 		if ((target.position.z - transform.position.z) <= -1) {
@@ -44,20 +52,9 @@ public class EnemyController : MonoBehaviour {
 
 		// Si en retard après attack raté
 		if ((target.position.z - transform.position.z) >= 13) {
-			controller.speed = normalSpeed;
+			controller.speed = normalSpeed * speedTarget;
 			canAttack = true;
 		}
-
-		// Esquiver voiture civile
-		RaycastHit hit;
-		if (Physics.BoxCast (transform.position, new Vector3 (2.5f, 2.5f, 2.5f), Vector3.forward, out hit, new Quaternion (0f, 0f, 0f, 0f), distanceView)) {
-			if (!isAttacking) {
-				if (hit.collider.CompareTag ("CivilianCar")) {
-					Debug.Log ("Vehicule civile droit devant.");
-				}
-			}
-		}
-
 
         // Destruction de la voiture de Police
 		if (target.position.z - transform.position.z > 50) {
@@ -78,15 +75,10 @@ public class EnemyController : MonoBehaviour {
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
 			}
-			getHit();
         }
         if (t.Touched &&
             !t.CopTouched &&
             !t.CarTouched)
-        {
-            getHit();
-        }
-        if (t.CopTouched)
         {
             getHit();
         }
@@ -122,12 +114,10 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	IEnumerator Attacking () {
-		Debug.Log ("début attaque");
 		isAttacking = true;
-		controller.speed = attackSpeed;
+		controller.speed = attackSpeed * speedTarget;
 		changeDirection();
 		yield return new WaitForSeconds(timeAttack);
-		Debug.Log ("fin attaque");
 		isAttacking = false;
 		controller.speed = recoverySpeed;
 		straightenUp ();
