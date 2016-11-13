@@ -78,15 +78,10 @@ public class EnemyController : MonoBehaviour {
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
 			}
-			getHit();
         }
         if (t.Touched &&
             !t.CopTouched &&
             !t.CarTouched)
-        {
-            getHit();
-        }
-        if (t.CopTouched)
         {
             getHit();
         }
