@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
         if (ammoTouched)
         {
             if (gm.ammo < 99)
-                gm.ammo++;
+                gm.ammo += cube.GetComponent<TestPhysic>().TouchedAmmoGameObject.GetComponent<AmmoBonus>().AmmoEarned;
             gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedAmmoGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedAmmoBonus = false;
@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
         if (dynamiteTouched)
         {
             if (gm.dynamite < 99)
-                gm.dynamite++;
+                gm.dynamite += cube.GetComponent<TestPhysic>().TouchedDynamiteGameObject.GetComponent<DynamiteBonus>().DynamiteEarned;
             gm.PlaySoundMulti(0);
             Destroy(cube.GetComponent<TestPhysic>().TouchedDynamiteGameObject.transform.parent.gameObject);
             cube.GetComponent<TestPhysic>().TouchedDynamiteBonus = false;

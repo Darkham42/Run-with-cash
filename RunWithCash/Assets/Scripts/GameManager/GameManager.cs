@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     bool gameStarted = false;
     bool gameDefinitelyOver = false;
+    bool boolGamePaused = false;
 
     GameObject player;
 
@@ -66,6 +68,22 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if ( Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Start") )
+        {
+            if (GameOver == false && gameStarted == true)
+            {
+                boolGamePaused = !boolGamePaused;
+                GamePaused = 1;
+                UI.transform.FindChild("Pause").gameObject.SetActive(false);
+                if (boolGamePaused)
+                {
+                    GamePaused = 0;
+                    UI.transform.FindChild("Pause").gameObject.SetActive(true);
+                }
+            } else if (GameOver == true)
+                SceneManager.LoadScene("menu");
+
+        }
         timer += Time.deltaTime * GamePaused;
         if (cash <= 0)
         {
@@ -102,7 +120,7 @@ public class GameManager : MonoBehaviour
                 if (timer > highScore)
                 {
                     PlayerPrefs.SetFloat("HighScore", timer);
-                    UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "You are the new High Score with " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
+                    UI.transform.FindChild("HighScore").gameObject.GetComponent<Text>().text = "You are the new High Score with " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60  );
                 }
                 else
                 {
@@ -111,7 +129,7 @@ public class GameManager : MonoBehaviour
                 UI.transform.FindChild("Score").gameObject.SetActive(true);
                 UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = "The cops caught you in " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
                 UI.transform.FindChild("HighScore").gameObject.SetActive(true);
-
+                UI.transform.FindChild("Image").gameObject.SetActive(true);
             }
         }
     }
