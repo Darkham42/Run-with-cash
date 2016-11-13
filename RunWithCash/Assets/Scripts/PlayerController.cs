@@ -124,6 +124,7 @@ public class PlayerController : MonoBehaviour
                 if (cube.GetComponent<TestPhysic>().CopGameObject)
                     cube.GetComponent<TestPhysic>().CopGameObject.transform.parent.GetComponent<EnemyController>().getHit();
             }
+            cube.GetComponent<TestPhysic>().CopTouched = false;
             gm.RemoveCash(10);
             AddInvicibility();
         }
