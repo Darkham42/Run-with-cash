@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
                 UI.transform.FindChild("Score").gameObject.SetActive(true);
                 UI.transform.FindChild("Score").gameObject.GetComponent<Text>().text = "The cops caught you in " + string.Format("{0}'{1}", Mathf.Floor(timer / 60), timer % 60);
                 UI.transform.FindChild("HighScore").gameObject.SetActive(true);
+                UI.transform.FindChild("Image").gameObject.SetActive(true);
 
             }
         }
