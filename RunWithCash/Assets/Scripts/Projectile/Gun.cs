@@ -9,9 +9,13 @@ public class Gun : MonoBehaviour {
 
     GameManager gm;
 
-	void Start () {
+    GameObject leftMuzzle;
+    GameObject rightMuzzle;
+    void Start () {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-	}
+        leftMuzzle = transform.FindChild("MuzzleLeft").gameObject;
+        rightMuzzle = transform.FindChild("MuzzleRight").gameObject;
+    }
 
 	public void Fire(int _direction) {
 		direction = Mathf.Sign(_direction);
@@ -28,14 +32,32 @@ public class Gun : MonoBehaviour {
 	}
 
 	IEnumerator Animation(float _direction) {
-		Fire gunFire = Instantiate (shoot, this.transform.position, this.transform.rotation, this.transform) as Fire;
+
+        if (_direction < 0)
+        {
+            leftMuzzle.SetActive(true);
+        }
+        else
+        {
+            rightMuzzle.SetActive(true);
+        }
+
+        Fire gunFire = Instantiate (shoot, this.transform.position, this.transform.rotation, this.transform) as Fire;
 		if (_direction >= 0) {
 			gunFire.transform.position = this.transform.position + new Vector3 (1.05f, .5f, 0f);
 		} else {
 			gunFire.transform.position = this.transform.position + new Vector3 (-1.05f, .5f, 0f);
 		}
 		yield return new WaitForSeconds(1f);
-		Destroy (gunFire.gameObject);
+        if (_direction < 0)
+        {
+            leftMuzzle.SetActive(false);
+        }
+        else
+        {
+            rightMuzzle.SetActive(false);
+        }
+        Destroy (gunFire.gameObject);
 	}
 
 }
