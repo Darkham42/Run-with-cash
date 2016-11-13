@@ -34,7 +34,8 @@ public class EnemyController : MonoBehaviour {
 			target.GetComponent<ControllerMove> ().brakeSpeed;
 		
 		// si joueur accelère
-		controller.speed = normalSpeed * speedTarget;
+		if (canAttack)
+			controller.speed = normalSpeed * speedTarget;
 
 		// Si devant le joueur
 		if ((target.position.z - transform.position.z) <= -1) {
