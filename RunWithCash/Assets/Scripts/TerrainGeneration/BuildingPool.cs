@@ -27,13 +27,10 @@ public class BuildingPool : MonoBehaviour
             GameObject togen = null;
 
             if (rnd > 90)
-                togen = ListToGenerate[1];
+                togen = ListToGenerate[ListToGenerate.Count - 1];
             else
             {
-                if (Random.Range(0, 2) == 0)
-                    togen = ListToGenerate[0];
-                else
-                    togen = ListToGenerate[2];
+                togen = ListToGenerate[Random.Range(0, ListToGenerate.Count - 1)];
             }
 
             GameObject newObject = GameObject.Instantiate(togen) as GameObject;
@@ -47,7 +44,7 @@ public class BuildingPool : MonoBehaviour
     {
         if (PoolNotUsed.Count > 0)
         {
-            GameObject objectUsed = PoolNotUsed[0];
+            GameObject objectUsed = PoolNotUsed[Random.Range(0, PoolNotUsed.Count - 1)];
             PoolUsed.Add(objectUsed);
             PoolNotUsed.Remove(objectUsed);
             objectUsed.SetActive(true);
@@ -58,7 +55,7 @@ public class BuildingPool : MonoBehaviour
 
         if (PoolNotUsed.Count > 0)
         {
-            GameObject objectUsed = PoolNotUsed[0];
+            GameObject objectUsed = PoolNotUsed[Random.Range(0, PoolNotUsed.Count - 1)];
             PoolUsed.Add(objectUsed);
             PoolNotUsed.Remove(objectUsed);
             objectUsed.SetActive(true);
