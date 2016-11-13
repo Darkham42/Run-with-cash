@@ -82,7 +82,7 @@ public class TerrainManager : MonoBehaviour
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 67)
+            if (Random.Range(0, 100) > 96)
             {
                 GameObject tmp = GameObject.Instantiate(AmmoBonus) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);

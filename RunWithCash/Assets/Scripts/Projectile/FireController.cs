@@ -30,8 +30,8 @@ public class FireController : MonoBehaviour {
 		}
 		*/
         bool dynamite = Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.L);
-        bool shootLeft = Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.K);
-        bool shootRight = Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.M);
+        bool shootRight = Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.M);
+        bool shootLeft = Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.K);
 
         if (dynamite && gm.GamePaused > 0 && gm.dynamite > 0) {
 			RaycastHit hit;

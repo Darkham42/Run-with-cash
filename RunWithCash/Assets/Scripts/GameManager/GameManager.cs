@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         cash = 50;
-        UpdateCash();
         UI = GameObject.Find("CanvasUI");
         player = GameObject.Find("Car");
         UpdateStartTimeUI();
@@ -120,7 +119,6 @@ public class GameManager : MonoBehaviour
     public void AddCash(int value)
     {
         cash += value;
-        UpdateCash();
     }
 
     public void RemoveCash(int value)
@@ -129,13 +127,7 @@ public class GameManager : MonoBehaviour
         {
             cash -= value;
         }
-        UpdateCash();
         PlaySound(4);
         player.GetComponent<PlayerController>().SpawnParticles();
-    }
-
-    void UpdateCash()
-    {
-        // Texte à afficher
     }
 }
