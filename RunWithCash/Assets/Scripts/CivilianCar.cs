@@ -9,11 +9,11 @@ public class CivilianCar : MonoBehaviour {
 
     private float timer = 0.0f;
     GameObject player;
-    GameManager gm;
+//nuGameManager gm;
 
 	void Start () {
         player = GameObject.Find("Car");
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+//nu	gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         int rnd = Random.Range(0, 3);
         transform.FindChild("Cube").GetComponent<MeshRenderer>().material = Colors[rnd];

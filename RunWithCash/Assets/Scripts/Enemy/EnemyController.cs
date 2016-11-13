@@ -6,17 +6,16 @@ public class EnemyController : MonoBehaviour {
 
 	private ControllerMove controller;
 	private Transform target;
-	bool inScreen;
-	bool alive = true;
-	public float normalSpeed = 35;
-	public float attackSpeed = 35;
-	public float recoverySpeed = 25;
-	public float distanceView = 6;
+	public float normalSpeed;
+	public float attackSpeed;
+	public float recoverySpeed;
+	public float timeAttack = 1f;
 	public bool canAttack = true;
 	public bool isAttacking = false;
+	public float speedTarget;
     public GameObject Explosion;
 
-    GameManager gm;
+//NUGameManager gm;
 	public float maxRectif = 20;
 
 	void Start () {
@@ -24,10 +23,18 @@ public class EnemyController : MonoBehaviour {
 		canAttack = false;
 		controller.speed = normalSpeed;
         target = GameObject.Find("Car").transform;
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+//NU	gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 
 	void Update () {
+		
+		speedTarget = 
+			1 +
+			target.GetComponent<ControllerMove> ().boostSpeed -
+			target.GetComponent<ControllerMove> ().brakeSpeed;
+		
+		// si joueur accelère
+		controller.speed = normalSpeed * speedTarget;
 
 		// Si devant le joueur
 		if ((target.position.z - transform.position.z) <= -1) {
@@ -44,21 +51,10 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// Si en retard après attack raté
-		if ((target.position.z - transform.position.z) >= 12) {
-			controller.speed = normalSpeed;
+		if ((target.position.z - transform.position.z) >= 13) {
+			controller.speed = normalSpeed * speedTarget;
 			canAttack = true;
 		}
-
-		// Esquiver voiture civile
-		RaycastHit hit;
-		if (Physics.BoxCast (transform.position, new Vector3 (2.5f, 2.5f, 2.5f), Vector3.forward, out hit, new Quaternion (0f, 0f, 0f, 0f), distanceView)) {
-			if (!isAttacking) {
-				if (hit.collider.CompareTag ("CivilianCar")) {
-					Debug.Log ("Vehicule civile droit devant.");
-				}
-			}
-		}
-
 
         // Destruction de la voiture de Police
 		if (target.position.z - transform.position.z > 50) {
@@ -71,7 +67,6 @@ public class EnemyController : MonoBehaviour {
         //Debug.Log(GetComponentInChildren<TestPhysic>().CopTouched);
         if (t.CarTouched)
         {
-            getHit();
             if (transform.position.x > t.CarGameObject.transform.parent.position.x)
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(-0.3f, 50);
@@ -79,15 +74,11 @@ public class EnemyController : MonoBehaviour {
             else
             {
                 t.CarGameObject.transform.parent.GetComponent<ControllerMove>().Turn(0.3f, 50);
-            }
+			}
         }
         if (t.Touched &&
             !t.CopTouched &&
             !t.CarTouched)
-        {
-            getHit();
-        }
-        if (t.CopTouched)
         {
             getHit();
         }
@@ -107,6 +98,11 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void getHit() {
+		StartCoroutine (dying ());
+	}
+
+	IEnumerator dying () {
+		yield return new WaitForSeconds (0.1f);
 		die ();
 	}
 
@@ -118,12 +114,10 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	IEnumerator Attacking () {
-		Debug.Log ("début attaque");
 		isAttacking = true;
-		controller.speed = attackSpeed;
+		controller.speed = attackSpeed * speedTarget;
 		changeDirection();
-		yield return new WaitForSeconds(.4f);
-		Debug.Log ("fin attaque");
+		yield return new WaitForSeconds(timeAttack);
 		isAttacking = false;
 		controller.speed = recoverySpeed;
 		straightenUp ();

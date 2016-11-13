@@ -70,25 +70,25 @@ public class TerrainManager : MonoBehaviour
 
         if (increment)
         {
-            if (Random.Range(0, 50) > 46)
+            if (Random.Range(0, 50) > 20)
             {
                 GameObject tmp = GameObject.Instantiate(CivilianCar) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 90)
+            if (Random.Range(0, 100) > 96)
             {
                 GameObject tmp = GameObject.Instantiate(CashBag) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 90)
+            if (Random.Range(0, 100) > 67)
             {
                 GameObject tmp = GameObject.Instantiate(AmmoBonus) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);
             }
 
-            if (Random.Range(0, 100) > 90)
+            if (Random.Range(0, 100) > 96)
             {
                 GameObject tmp = GameObject.Instantiate(DynamiteBonus) as GameObject;
                 tmp.transform.position = chunk.transform.position + new Vector3(Random.Range(-7.0f, 7.0f), 0, 0);

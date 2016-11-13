@@ -4,8 +4,8 @@ using System.Collections;
 public class ControllerMove : MonoBehaviour {
 
     // GameObject vide référence que la voiture suivra
-    public Transform reference;
-    public float speed;
+	public Transform reference;
+	public float speed;
     public float speedTurn;
     public float turnLimit;
     public float speedMax;
@@ -13,8 +13,8 @@ public class ControllerMove : MonoBehaviour {
 
     private GameObject lookAtPoint;
     private float lookAtPointOffset;
-    private float boostSpeed = 0;
-    private float brakeSpeed = 0;
+	public float boostSpeed = 0;
+    public float brakeSpeed = 0;
 
     GameManager gm;
 
@@ -45,7 +45,7 @@ public class ControllerMove : MonoBehaviour {
 
     public void MoveForward() {
         transform.position += (transform.forward * speed * Time.fixedDeltaTime * gm.GamePaused) + transform.forward * boostSpeed - transform.forward * brakeSpeed;
-        lookAtPoint.transform.position = transform.position + new Vector3(lookAtPointOffset, 0, 7);
+		lookAtPoint.transform.position = transform.position + new Vector3(lookAtPointOffset, 0, 7);
     }
 
     public void Turn(float rotation, float speed) {

@@ -10,12 +10,12 @@ public class Projectile : MonoBehaviour {
 	public float distance;
 	float angle = 20f;
 	Vector3 trajectory;
-	Vector3 debugTarget;
+//NUVector3 debugTarget;
     GameManager gm;
 
 	void Start () {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-		debugTarget = new Vector3 (transform.position.x, 0, transform.position.z - distance);
+//nu	DebugTarget = new Vector3 (transform.position.x, 0, transform.position.z - distance);
 		rb = GetComponent<Rigidbody> ();
 		trajectory = Vector3.Slerp (Vector3.back, Vector3.up, angle / 90f);
 		rb.AddForce(trajectory * setThrow (distance), ForceMode.Impulse);
