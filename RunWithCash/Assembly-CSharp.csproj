@@ -47,9 +47,11 @@
   <ItemGroup>
      <Compile Include="Assets\MoveForward.cs" />
      <Compile Include="Assets\Scripts\AmmoBonus.cs" />
+     <Compile Include="Assets\Scripts\Car\CarBehaviour.cs" />
      <Compile Include="Assets\Scripts\CashBonus.cs" />
      <Compile Include="Assets\Scripts\CivilianCar.cs" />
      <Compile Include="Assets\Scripts\ControllerMove.cs" />
+     <Compile Include="Assets\Scripts\ControllerPlayer.cs" />
      <Compile Include="Assets\Scripts\DynamiteBonus.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
      <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
