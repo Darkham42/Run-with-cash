@@ -18,7 +18,7 @@ public class ControllerPlayer : MonoBehaviour {
 		speedUp = Input.GetAxisRaw ("Vertical");
 		turn = Input.GetAxisRaw ("Horizontal");
 
-		carBehaviour.inputSpeed (speedUp);
-		carBehaviour.inputDirection (turn);
+		carBehaviour.SpeedUp (speedUp);
+		carBehaviour.Turn (turn);
 	}
 }
