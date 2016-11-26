@@ -6,6 +6,8 @@ public class ControllerPlayer : MonoBehaviour {
 
 	float speedUp;
 	float turn;
+	float turnSpeed = 5;
+	float crusingSpeed = 0;
 	CarBehaviour carBehaviour;
 
 	// Use this for initialization
@@ -15,10 +17,10 @@ public class ControllerPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		speedUp = Input.GetAxisRaw ("Vertical");
+		speedUp = Input.GetAxisRaw ("Vertical") * 5;
 		turn = Input.GetAxisRaw ("Horizontal");
 
-		carBehaviour.SpeedUp (speedUp);
-		carBehaviour.Turn (turn);
+		carBehaviour.Speed (speedUp + crusingSpeed);
+		carBehaviour.Turn (turn * turnSpeed);
 	}
 }
