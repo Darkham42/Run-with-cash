@@ -42,4 +42,14 @@ public class CarBehaviour : MonoBehaviour {
 	public void Die () {
 		Debug.Log ("Mort !!!");
 	}
+
+	void OnTriggerEnter(Collider other) {
+		if (this.tag == "Player") {
+			switch (other.tag) {
+			case "CashBonus":
+				Debug.Log ("Cash ramassé");
+				break;
+			}
+		}
+	}
 }
