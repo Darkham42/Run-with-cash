@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Projectile\FireController.cs" />
      <Compile Include="Assets\Scripts\Projectile\Gun.cs" />
      <Compile Include="Assets\Scripts\Projectile\Projectile.cs" />
+     <Compile Include="Assets\Scripts\SpawnSystem\SpawnEnemy.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\BuildingPool.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\Chunk.cs" />
      <Compile Include="Assets\Scripts\TerrainGeneration\ChunkPool.cs" />
